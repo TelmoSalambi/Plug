@@ -48,7 +48,7 @@ export default function ApplePage() {
   useReveal();
   return (
     <>
-      <BrandHero brand={brand} heroImage={img.techVitrine}>
+      <BrandHero brand={brand} extraImage={img.techVitrine}>
         <p
           className="hero-in mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-400"
           style={{ animationDelay: "0.3s" }}

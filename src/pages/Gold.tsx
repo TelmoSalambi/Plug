@@ -16,7 +16,7 @@ export default function GoldPage() {
   useReveal();
   return (
     <>
-      <BrandHero brand={brand} heroImage={img.goldRing}>
+      <BrandHero brand={brand} extraImage={img.goldRing}>
         <p
           className="hero-in mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-400"
           style={{ animationDelay: "0.3s" }}

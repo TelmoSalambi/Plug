@@ -3,32 +3,34 @@ import type { Brand } from "../lib/data";
 import { Icon, type IconKey } from "./Icon";
 import { waLink } from "../lib/data";
 
-type Props = { brand: Brand; children?: React.ReactNode; heroImage?: string };
+type Props = { brand: Brand; children?: React.ReactNode; extraImage?: string };
 
-export function BrandHero({ brand, children, heroImage }: Props) {
+export function BrandHero({ brand, children, extraImage }: Props) {
   const Ico = Icon[brand.icon as IconKey];
   return (
     <section className="relative flex min-h-[70vh] items-center overflow-hidden pt-32 pb-20">
-      {/* Fundo: gradiente radial com a cor da marca */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: `radial-gradient(ellipse at top, ${brand.accent}15, #0A0A0A 65%)`,
-        }}
-      />
-      {heroImage && (
-        <div className="absolute inset-0 opacity-25">
-          <img src={heroImage} alt="" aria-hidden="true" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/70 via-[#0A0A0A]/60 to-[#0A0A0A]" />
-        </div>
-      )}
+      {/* Fundo com imagem da marca */}
+      <div className="absolute inset-0">
+        <img
+          src={brand.heroImage}
+          alt=""
+          aria-hidden="true"
+          className="h-full w-full object-cover"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to right, #0A0A0A 0%, #0A0A0A 55%, #0A0A0Aaa 85%, #0A0A0A55)`,
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/40 to-[#0A0A0A]/70" />
+      </div>
       <div
         className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full blur-[120px]"
-        style={{ background: `${brand.accent}15` }}
+        style={{ background: `${brand.accent}20` }}
       />
 
       <div className="relative z-10 mx-auto w-full max-w-[1760px] px-5 sm:px-8 lg:px-14">
-        {/* Breadcrumbs */}
         <nav className="mb-8 flex items-center gap-2 text-xs text-stone-500" aria-label="Percurso">
           <Link to="/" className="transition hover:text-[#F0C94A]">
             Início
@@ -95,13 +97,33 @@ export function BrandHero({ brand, children, heroImage }: Props) {
               </Link>
             </div>
           </div>
+
+          {extraImage && (
+            <div className="hidden lg:col-span-2 lg:block">
+              <div
+                className="hero-in relative overflow-hidden rounded-3xl border shadow-2xl"
+                style={{
+                  borderColor: `${brand.accent}30`,
+                  animationDelay: "0.3s",
+                }}
+              >
+                <img
+                  src={extraImage}
+                  alt=""
+                  aria-hidden="true"
+                  width={600}
+                  height={400}
+                  className="h-80 w-full object-cover"
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>
   );
 }
 
-// Bloco de conteúdo comum a todas as páginas de marca
 export function BrandSection({
   brand,
   eyebrow,
@@ -133,7 +155,6 @@ export function BrandSection({
   );
 }
 
-// Placeholder para secções de galeria/preços que ainda não têm fotos
 export function ComingSoon({ brand }: { brand: Brand }) {
   return (
     <div
@@ -146,10 +167,10 @@ export function ComingSoon({ brand }: { brand: Brand }) {
       >
         <Icon.Camera size={30} />
       </div>
-      <h3 className="font-display text-xl font-bold text-white">Conteúdo em breve</h3>
+      <h3 className="font-display text-xl font-bold text-white">Galeria em preparação</h3>
       <p className="mx-auto mt-2 max-w-lg text-sm text-stone-400">
-        Estamos a preparar a galeria completa, catálogo de produtos e preços da {brand.name}. Para
-        já, fale connosco pelo WhatsApp e teremos todo o gosto em atendê-lo.
+        Estamos a preparar o catálogo completo de produtos e serviços da {brand.name}. Fale connosco
+        pelo WhatsApp para atendimento imediato.
       </p>
       <a
         href={waLink(brand.whatsappMsg)}

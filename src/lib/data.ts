@@ -56,11 +56,12 @@ export type Brand = {
   fullName: string;
   shortDesc: string;
   longDesc: string;
-  icon: string; // chave no Icon
-  accent: string; // cor HEX principal
-  featured: boolean; // se é uma marca com secção expandida
+  icon: string;
+  accent: string;
+  featured: boolean;
   whatsappMsg: string;
   anchor: string;
+  heroImage: string;
 };
 
 export const brands: Brand[] = [
@@ -70,12 +71,13 @@ export const brands: Brand[] = [
     fullName: "Plug Apple",
     shortDesc: "Produtos Apple",
     longDesc:
-      "Venda de iPhones, AirPods, iPads, MacBooks, Apple Watch e acessórios originais. Novos e usados verificados, com garantia.",
+      "Venda de iPhones, AirPods, iPads, MacBooks, Apple Watch e acessórios originais. Novos e usados verificados, com garantia e assistência técnica.",
     icon: "Phone",
     accent: "#F0C94A",
     featured: true,
     whatsappMsg: "Olá! Tenho interesse em produtos Apple da Plug Apple.",
     anchor: "#marcas-apple",
+    heroImage: heroApple,
   },
   {
     id: "gold",
@@ -83,12 +85,13 @@ export const brands: Brand[] = [
     fullName: "Plug Gold · Ourivesaria",
     shortDesc: "Compra de ouro",
     longDesc:
-      "Compramos todo o tipo de ouro — fios, anéis, brincos, pulseiras, relógios, barras, mascotes e medalhas. Pagamento na hora, pesagem transparente e troca por iPhone.",
+      "Compramos todo o tipo de ouro — fios, anéis, brincos, pulseiras, relógios, barras, mascotes e medalhas, mesmo danificado ou em pedaços. Pagamento na hora, pesagem transparente e troca por iPhone.",
     icon: "Ring",
     accent: "#F0C94A",
     featured: true,
     whatsappMsg: "Olá! Quero vender ou trocar ouro na Plug Gold.",
     anchor: "#marcas-gold",
+    heroImage: heroGold,
   },
   {
     id: "clean",
@@ -102,6 +105,7 @@ export const brands: Brand[] = [
     featured: true,
     whatsappMsg: "Olá! Quero marcar um serviço de limpeza com a Plug Clean.",
     anchor: "#marcas-clean",
+    heroImage: heroClean,
   },
   {
     id: "deliveries",
@@ -115,6 +119,7 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero saber mais sobre as Plug Entregas.",
     anchor: "#marcas",
+    heroImage: heroDeliveries,
   },
   {
     id: "games",
@@ -122,12 +127,13 @@ export const brands: Brand[] = [
     fullName: "Plug Games",
     shortDesc: "Playstation & jogos",
     longDesc:
-      "Consolas Playstation, comandos DualShock/DualSense, videojogos e acessórios de gaming.",
+      "Consolas Playstation, comandos DualShock/DualSense, videojogos e acessórios de gaming originais.",
     icon: "Gamepad",
     accent: "#a78bfa",
     featured: false,
     whatsappMsg: "Olá! Tenho interesse na Plug Games.",
     anchor: "#marcas",
+    heroImage: heroGames,
   },
   {
     id: "works",
@@ -141,6 +147,7 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero informações sobre a Plug Obras.",
     anchor: "#marcas",
+    heroImage: heroWorks,
   },
   {
     id: "food",
@@ -153,6 +160,7 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero saber mais sobre a Plug Food.",
     anchor: "#marcas",
+    heroImage: heroFood,
   },
   {
     id: "motors",
@@ -166,6 +174,7 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero saber mais sobre viaturas na Plug Motors.",
     anchor: "#marcas",
+    heroImage: heroMotors,
   },
   {
     id: "money",
@@ -173,12 +182,13 @@ export const brands: Brand[] = [
     fullName: "Plug Money",
     shortDesc: "Compra & venda de divisas",
     longDesc:
-      "Compra e venda de divisas: dólar americano, euro, kwanzas e outras moedas, com cotação justa e transacção segura.",
+      "Compra e venda de divisas: dólar americano, euro, kwanzas e outras moedas, com cotação justa e transacção segura na hora.",
     icon: "Cash",
     accent: "#34d399",
     featured: false,
     whatsappMsg: "Olá! Quero informações sobre câmbio na Plug Money.",
     anchor: "#marcas",
+    heroImage: heroMoney,
   },
   {
     id: "drip",
@@ -191,6 +201,7 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero saber mais sobre a Plug Drip.",
     anchor: "#marcas",
+    heroImage: heroDrip,
   },
   {
     id: "equipa",
@@ -204,6 +215,7 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Gostaria de falar com o Grupo Plug Business.",
     anchor: "#equipa",
+    heroImage: heroEquipa,
   },
 ] as const;
 
@@ -218,6 +230,19 @@ import realGoldRingScale from "../assets/real/gold-ring-scale.jpg";
 import realGoldRingClose from "../assets/real/gold-ring-close.jpg";
 import realGoldFlyer from "../assets/real/gold-flyer.jpg";
 import realGoldTradeFlyer from "../assets/real/gold-trade-flyer.jpg";
+
+// Imagens geradas (hero por marca)
+import heroApple from "../assets/gen/hero-apple.jpg";
+import heroGold from "../assets/gen/hero-gold.jpg";
+import heroClean from "../assets/gen/hero-clean.jpg";
+import heroDeliveries from "../assets/gen/hero-deliveries.jpg";
+import heroGames from "../assets/gen/hero-games.jpg";
+import heroWorks from "../assets/gen/hero-works.jpg";
+import heroFood from "../assets/gen/hero-food.jpg";
+import heroMotors from "../assets/gen/hero-motors.jpg";
+import heroMoney from "../assets/gen/hero-money.jpg";
+import heroDrip from "../assets/gen/hero-drip.jpg";
+import heroEquipa from "../assets/gen/hero-equipa.jpg";
 
 export const img = {
   techStore: realTechStore,
