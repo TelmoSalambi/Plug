@@ -130,12 +130,7 @@ body {
   left: -80%;
   width: 60%;
   height: 100%;
-  background: linear-gradient(
-    100deg,
-    transparent,
-    rgba(255, 255, 255, 0.55),
-    transparent
-  );
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
   transform: skewX(-20deg);
   transition: left 0.6s ease;
   pointer-events: none;
@@ -173,20 +168,8 @@ body {
   animation: marquee 30s linear infinite;
 }
 .marquee-mask {
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 8%,
-    black 92%,
-    transparent
-  );
-  -webkit-mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 8%,
-    black 92%,
-    transparent
-  );
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
 }
 
 @keyframes floatUp {

@@ -1,13 +1,22 @@
+// Gerador pseudo-aleatório determinístico para evitar mismatch SSR/hidratação
+function seeded(seed: number) {
+  return () => {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed / 233280;
+  };
+}
+
+const rand = seeded(42);
 const dots = Array.from({ length: 22 }, () => ({
-  left: Math.random() * 100,
-  delay: Math.random() * 12,
-  dur: 10 + Math.random() * 12,
-  size: 2 + Math.random() * 4,
+  left: rand() * 100,
+  delay: rand() * 12,
+  dur: 10 + rand() * 12,
+  size: 2 + rand() * 4,
 }));
 
 export function Particles() {
   return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       {dots.map((dot, i) => (
         <span
           key={i}

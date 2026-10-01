@@ -2,9 +2,9 @@ import logoUrl from "../assets/logo.jpg";
 
 export function Logo({ size = 40 }: { size?: number }) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-3" aria-label="Grupo Plug Business">
       <div
-        className="relative flex items-center justify-center rounded-xl gold-glow"
+        className="relative flex shrink-0 items-center justify-center rounded-xl gold-glow"
         style={{
           width: size,
           height: size,
@@ -14,9 +14,10 @@ export function Logo({ size = 40 }: { size?: number }) {
       >
         <img
           src={logoUrl}
-          alt="Logotipo do Grupo Plug Business"
-          width={size * 0.8}
-          height={size * 0.8}
+          alt=""
+          aria-hidden="true"
+          width={Math.round(size * 0.8)}
+          height={Math.round(size * 0.8)}
           className="rounded-lg object-cover"
         />
       </div>

@@ -1,5 +1,15 @@
 import { describe, expect, it } from "vitest";
-import { WHATSAPP, cleanPrices, formatPhone, provinces, waLink } from "./data";
+import {
+  WHATSAPP,
+  WHATSAPP_LIST,
+  cleanPrices,
+  formatPhone,
+  provinces,
+  waLink,
+  faqs,
+  goldItems,
+  brands,
+} from "./data";
 
 describe("WHATSAPP", () => {
   it("contém apenas dígitos", () => {
@@ -9,12 +19,29 @@ describe("WHATSAPP", () => {
   it("usa o código de país de Angola por omissão", () => {
     expect(WHATSAPP.startsWith("244")).toBe(true);
   });
+
+  it("WHATSAPP_LIST tem pelo menos um número válido", () => {
+    expect(WHATSAPP_LIST.length).toBeGreaterThan(0);
+    for (const n of WHATSAPP_LIST) {
+      expect(n).toMatch(/^\d{10,15}$/);
+      expect(n.startsWith("244")).toBe(true);
+    }
+  });
+
+  it("WHATSAPP é o primeiro da lista", () => {
+    expect(WHATSAPP).toBe(WHATSAPP_LIST[0]);
+  });
 });
 
 describe("waLink", () => {
   it("gera o link wa.me com o número e o texto codificado", () => {
     const msg = "Olá, tudo bem?";
     expect(waLink(msg)).toBe(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`);
+  });
+
+  it("permite usar um número alternativo", () => {
+    const alt = WHATSAPP_LIST[1] ?? WHATSAPP;
+    expect(waLink("oi", alt)).toContain(alt);
   });
 
   it("codifica espaços e acentos", () => {
@@ -47,5 +74,43 @@ describe("dados da landing", () => {
       expect(row.item).toBeTruthy();
       expect(row.price).toMatch(/^\d{1,3}(\.\d{3})*$/);
     }
+  });
+
+  it("FAQs cobrem tópicos essenciais", () => {
+    const all = faqs.map((f) => f.q).join(" ");
+    expect(all).toMatch(/ouro/i);
+    expect(all).toMatch(/garantia/i);
+    expect(all).toMatch(/limpeza/i);
+    expect(faqs.length).toBeGreaterThanOrEqual(5);
+  });
+
+  it("goldItems inclui 'Mascotes' e 'Pedaços' (dos flyers reais)", () => {
+    expect(goldItems).toContain("Mascotes");
+    expect(goldItems).toContain("Pedaços");
+  });
+
+  it("existem as 11 marcas do grupo", () => {
+    const ids = brands.map((b) => b.id);
+    expect(ids).toEqual(
+      expect.arrayContaining([
+        "apple",
+        "gold",
+        "deliveries",
+        "games",
+        "works",
+        "food",
+        "motors",
+        "money",
+        "drip",
+        "equipa",
+        "clean",
+      ])
+    );
+    expect(brands).toHaveLength(11);
+  });
+
+  it("3 marcas principais estão em destaque (featured)", () => {
+    const featured = brands.filter((b) => b.featured);
+    expect(featured.map((b) => b.id).sort()).toEqual(["apple", "clean", "gold"]);
   });
 });

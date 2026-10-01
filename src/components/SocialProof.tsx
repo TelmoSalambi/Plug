@@ -1,4 +1,4 @@
-import { socialProof } from "../lib/data";
+import { socialProof, social, schedule } from "../lib/data";
 import { Icon } from "./Icon";
 
 export function SocialProof() {
@@ -24,23 +24,22 @@ export function SocialProof() {
           })}
         </div>
 
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 pt-8 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/5 pt-8 sm:flex-row">
           <div className="flex items-center gap-2 text-sm text-stone-400">
             <Icon.Clock size={18} className="text-[#F0C94A]" />
-            <span className="font-semibold text-stone-200">Horário:</span> Segunda a Sábado, 08h às
-            18h
+            <span className="font-semibold text-stone-200">Horário:</span> {schedule}
           </div>
           <div className="flex items-center gap-5 text-sm">
             <a
-              href="https://instagram.com/plugbusiness.lda"
+              href={social.instagram.url}
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 text-stone-300 transition hover:text-[#F0C94A]"
             >
-              <Icon.Instagram size={18} /> @plugbusiness.lda
+              <Icon.Instagram size={18} /> {social.instagram.handle}
             </a>
             <a
-              href="https://tiktok.com/@plugbusiness.lda"
+              href={social.tiktok.url}
               target="_blank"
               rel="noreferrer"
               className="flex items-center gap-2 text-stone-300 transition hover:text-[#F0C94A]"

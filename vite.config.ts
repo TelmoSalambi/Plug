@@ -13,6 +13,14 @@ export default defineConfig({
   // caminhos relativos: o build funciona em subpastas e via file://
   base: "./",
   plugins: [react(), tailwindcss(), viteSingleFile()],
+  server: {
+    host: "0.0.0.0",
+    allowedHosts: true,
+  },
+  preview: {
+    host: "0.0.0.0",
+    allowedHosts: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
