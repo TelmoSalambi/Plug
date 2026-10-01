@@ -11,8 +11,8 @@ export function FinalCTA() {
           Fale connosco <span className="text-gradient-gold">agora mesmo</span>
         </h2>
         <p className="reveal mx-auto mt-5 max-w-xl text-lg text-stone-300">
-          Tecnologia, ouro ou limpeza. Contacte-nos agora e resolva tudo num só sítio. Resposta
-          rápida via WhatsApp ou chamada.
+          Apple, ouro, limpeza, entregas, viaturas, câmbio, moda, food, obras ou jogos — seja qual
+          for a sua necessidade, fale connosco agora. Resposta rápida via WhatsApp ou chamada.
         </p>
         <div className="reveal mt-9 flex flex-wrap justify-center gap-4">
           <a

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon, type IconKey } from "./Icon";
 import bannerTech from "../assets/banner-tech.jpg";
 import bannerGold from "../assets/banner-gold.jpg";
@@ -17,22 +17,61 @@ const slides: Slide[] = [
   { image: bannerClean, label: "Plug Clean", icon: "Sofa", accent: "#4fd1c5" },
 ];
 
+const ROTATE_MS = 5500;
+
 /**
  * fill = true  → o carrossel preenche toda a secção (fundo, texto por cima)
  * fill = false → cartão 4/3 com chips das marcas (uso avulso)
  */
 export function HeroCarousel({ fill = false }: { fill?: boolean }) {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<number | null>(null);
 
+  const goTo = useCallback((i: number) => setActive((i + slides.length) % slides.length), []);
+  const next = useCallback(() => setActive((a) => (a + 1) % slides.length), []);
+
+  // Ciclo automático com pausa inteligente
   useEffect(() => {
-    const id = setInterval(() => {
-      setActive((a) => (a + 1) % slides.length);
-    }, 4200);
-    return () => clearInterval(id);
+    if (paused) {
+      if (timerRef.current) {
+        window.clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+      return;
+    }
+    timerRef.current = window.setInterval(next, ROTATE_MS);
+    return () => {
+      if (timerRef.current) window.clearInterval(timerRef.current);
+    };
+  }, [paused, next]);
+
+  // Pausar quando o separador/tab está em background
+  useEffect(() => {
+    const onVis = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
 
+  // Pausar ao fazer hover ou focar no carrossel (fill mode = hero)
+  const pauseProps = fill
+    ? {
+        onMouseEnter: () => setPaused(true),
+        onMouseLeave: () => setPaused(false),
+        onFocus: () => setPaused(true),
+        onBlur: () => setPaused(false),
+      }
+    : {};
+
   return (
-    <div className={fill ? "absolute inset-0" : "relative animate-fade-slide"}>
+    <div
+      ref={containerRef}
+      className={fill ? "absolute inset-0" : "relative animate-fade-slide"}
+      {...pauseProps}
+      aria-roledescription="carrossel"
+      aria-label="Áreas do Grupo Plug Business"
+    >
       {!fill && (
         <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-tr from-[#C9A227]/20 to-transparent blur-2xl" />
       )}
@@ -49,14 +88,20 @@ export function HeroCarousel({ fill = false }: { fill?: boolean }) {
             key={s.image}
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
             style={{ opacity: i === active ? 1 : 0 }}
+            aria-hidden={i !== active}
           >
             <img
               src={s.image}
               alt={s.label}
               className="h-full w-full object-cover"
+              width={1400}
+              height={788}
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+              fetchPriority={i === 0 ? "high" : "auto"}
               style={{
                 transform: i === active ? "scale(1.06)" : "scale(1)",
-                transition: "transform 5s ease-out",
+                transition: "transform 6s ease-out",
               }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-transparent" />
@@ -80,12 +125,14 @@ export function HeroCarousel({ fill = false }: { fill?: boolean }) {
         ))}
 
         {/* progress dots */}
-        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+        <div className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 gap-2" role="tablist">
           {slides.map((s, i) => (
             <button
               key={s.label}
+              role="tab"
+              aria-selected={i === active}
               aria-label={`Ver ${s.label}`}
-              onClick={() => setActive(i)}
+              onClick={() => goTo(i)}
               className="h-1.5 rounded-full transition-all duration-500"
               style={{
                 width: i === active ? 28 : 10,

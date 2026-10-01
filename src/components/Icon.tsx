@@ -1,4 +1,6 @@
-type IconProps = { className?: string; size?: number; stroke?: number };
+import { CSSProperties } from "react";
+
+type IconProps = { className?: string; size?: number; stroke?: number; style?: CSSProperties };
 
 const base = (p: IconProps) => ({
   width: p.size ?? 24,
@@ -10,6 +12,8 @@ const base = (p: IconProps) => ({
   strokeLinecap: "round" as const,
   strokeLinejoin: "round" as const,
   className: p.className,
+  style: p.style,
+  "aria-hidden": true as const,
 });
 
 export const Icon = {
@@ -93,7 +97,9 @@ export const Icon = {
   ),
   Bed: (p: IconProps) => (
     <svg {...base(p)}>
-      <path d="M2 18V7M2 12h20a0 0 0 0 1 0 0v6M22 18v-4" />
+      <path d="M2 18V7" />
+      <path d="M2 12h20v6" />
+      <path d="M22 18v-4" />
       <path d="M2 12v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2" />
       <path d="M2 18h20" />
     </svg>
@@ -185,6 +191,36 @@ export const Icon = {
       <path d="M12 5v14M5 12h14" />
     </svg>
   ),
+  Copy: (p: IconProps) => (
+    <svg {...base(p)}>
+      <rect x="8" y="8" width="12" height="12" rx="2" />
+      <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+    </svg>
+  ),
+  Check: (p: IconProps) => (
+    <svg {...base(p)}>
+      <path d="m5 12 5 5 9-11" />
+    </svg>
+  ),
+  Food: (p: IconProps) => (
+    <svg {...base(p)}>
+      <path d="M3 2v20M7 2v8a2 2 0 0 0 2 2v10" />
+      <path d="M7 6c0-2 2-4 5-4v20" />
+      <path d="M15 2c0 3 2 5 2 8v4" />
+      <path d="M17 14v8" />
+    </svg>
+  ),
+  Shirt: (p: IconProps) => (
+    <svg {...base(p)}>
+      <path d="M4 7 8 3l4 2 4-2 4 4-3 3v10H7V10L4 7Z" />
+    </svg>
+  ),
+  Camera: (p: IconProps) => (
+    <svg {...base(p)}>
+      <path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1Z" />
+      <circle cx="12" cy="13" r="3.5" />
+    </svg>
+  ),
   WhatsApp: (p: IconProps) => (
     <svg
       width={p.size ?? 24}
@@ -192,6 +228,8 @@ export const Icon = {
       viewBox="0 0 24 24"
       fill="currentColor"
       className={p.className}
+      style={p.style}
+      aria-hidden="true"
     >
       <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.32-1.95 1.36-.5.05-.98.24-3.33-.7-2.8-1.13-4.6-3.98-4.74-4.17-.14-.19-1.14-1.52-1.14-2.9 0-1.38.72-2.06.98-2.34.24-.26.53-.33.71-.33.18 0 .36 0 .51.01.16.01.39-.06.6.47.24.55.79 1.92.86 2.06.07.14.12.3.02.49-.09.19-.14.3-.28.47-.14.16-.29.36-.42.48-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.24 2.25 1.38.28.14.44.12.6-.07.16-.19.69-.8.87-1.08.18-.28.36-.23.6-.14.24.09 1.55.73 1.82.87.28.14.46.21.53.33.07.12.07.68-.17 1.36z" />
     </svg>
