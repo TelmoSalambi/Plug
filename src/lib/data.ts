@@ -230,6 +230,10 @@ import realGoldRingScale from "../assets/real/gold-ring-scale.jpg";
 import realGoldRingClose from "../assets/real/gold-ring-close.jpg";
 import realGoldFlyer from "../assets/real/gold-flyer.jpg";
 import realGoldTradeFlyer from "../assets/real/gold-trade-flyer.jpg";
+import cleanWindow from "../assets/clean/clean-window.jpg";
+import cleanMattress from "../assets/clean/clean-mattress.jpg";
+import cleanChairs from "../assets/clean/clean-chairs.jpg";
+import cleanExtraction from "../assets/clean/clean-sofa-extraction.jpg";
 
 // Imagens geradas (hero por marca)
 import heroApple from "../assets/gen/hero-apple.jpg";
@@ -255,6 +259,11 @@ export const img = {
   goldRingClose: realGoldRingClose,
   goldFlyer: realGoldFlyer,
   goldTrade: realGoldTradeFlyer,
+  // Plug Clean — fotos reais (sem overlays de marketing)
+  cleanWindow,
+  cleanMattress,
+  cleanChairs,
+  cleanExtraction,
 };
 
 export const socialProof = [
@@ -280,10 +289,11 @@ export const goldItems = [
 ];
 
 export const cleanServices = [
-  { icon: "Sofa", title: "Sofás & poltronas", desc: "De 1 a 7 lugares" },
-  { icon: "Car", title: "Interior de viatura", desc: "Bancos e interior completo" },
-  { icon: "Bed", title: "Colchões", desc: "Solteiro, casal e king" },
-  { icon: "Chair", title: "Cadeiras", desc: "Sala e escritório" },
+  { icon: "Sofa", title: "Estofados & sofás", desc: "Higienização profunda de 1 a 7 lugares" },
+  { icon: "Car", title: "Interior de viatura", desc: "Bancos, tecto e interior completo" },
+  { icon: "Bed", title: "Colchões", desc: "Elimina ácaros, fungos e odores" },
+  { icon: "Chair", title: "Cadeiras", desc: "Sala de jantar e escritório" },
+  { icon: "Tool", title: "Pós-obra", desc: "Deixa o espaço pronto a habitar" },
 ] as const;
 
 export const cleanPrices = [

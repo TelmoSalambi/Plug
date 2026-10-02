@@ -1,4 +1,4 @@
-import { brands, cleanServices, cleanPrices, waLink } from "../lib/data";
+import { brands, cleanServices, cleanPrices, waLink, img } from "../lib/data";
 import { BrandHero, BrandSection } from "../components/BrandHero";
 import { Icon, type IconKey } from "../components/Icon";
 import { useReveal } from "../hooks/useReveal";
@@ -40,7 +40,7 @@ export default function CleanPage() {
 
   return (
     <>
-      <BrandHero brand={brand}>
+      <BrandHero brand={brand} extraImage={img.cleanWindow}>
         <p
           className="hero-in mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-400"
           style={{ animationDelay: "0.3s" }}
@@ -147,6 +147,42 @@ export default function CleanPage() {
         >
           <Icon.Sparkles size={20} /> Marcar serviço de limpeza
         </a>
+      </BrandSection>
+
+      {/* Galeria real */}
+      <BrandSection brand={brand} eyebrow="Galeria" title="Trabalhos reais da nossa equipa">
+        <div className="grid gap-4 sm:grid-cols-2">
+          {[
+            { src: img.cleanWindow, label: "Limpeza de vidros · Pós-obra" },
+            { src: img.cleanExtraction, label: "Higienização de estofados" },
+            { src: img.cleanMattress, label: "Tratamento de colchões" },
+            { src: img.cleanChairs, label: "Limpeza de cadeiras" },
+          ].map((g, i) => (
+            <figure
+              key={g.label}
+              className="reveal group relative overflow-hidden rounded-2xl border"
+              style={{
+                borderColor: `${brand.accent}25`,
+                transitionDelay: `${i * 80}ms`,
+              }}
+            >
+              <img
+                src={g.src}
+                alt={g.label}
+                className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <figcaption
+                className="absolute inset-x-0 bottom-0 flex items-end p-4 text-sm font-semibold text-white"
+                style={{
+                  background: `linear-gradient(to top, rgba(0,0,0,0.75), transparent)`,
+                }}
+              >
+                {g.label}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
       </BrandSection>
     </>
   );
