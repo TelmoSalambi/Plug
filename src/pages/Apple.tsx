@@ -1,5 +1,5 @@
-import { brands, img, waLink } from "../lib/data";
-import { BrandHero, BrandSection, ComingSoon } from "../components/BrandHero";
+import { brands, img, waLink, brandGallery } from "../lib/data";
+import { BrandHero, BrandSection, BrandGallery } from "../components/BrandHero";
 import { Icon } from "../components/Icon";
 import { useReveal } from "../hooks/useReveal";
 
@@ -116,8 +116,8 @@ export default function ApplePage() {
         </a>
       </BrandSection>
 
-      <BrandSection brand={brand} eyebrow="Em breve" title="Galeria & catálogo completo">
-        <ComingSoon brand={brand} />
+      <BrandSection brand={brand} eyebrow="Galeria" title="Na nossa loja">
+        <BrandGallery brand={brand} photos={brandGallery.apple} />
       </BrandSection>
     </>
   );

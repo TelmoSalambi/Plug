@@ -1,5 +1,5 @@
-import { brands } from "../lib/data";
-import { BrandHero, BrandSection, ComingSoon } from "../components/BrandHero";
+import { brands, brandGallery, waLink, type BrandKey } from "../lib/data";
+import { BrandHero, BrandSection, BrandGallery, ComingSoon } from "../components/BrandHero";
 import { Icon, type IconKey } from "../components/Icon";
 import { useReveal } from "../hooks/useReveal";
 import { Link } from "react-router-dom";
@@ -83,9 +83,11 @@ export function createBrandPage(id: string) {
     useReveal();
     const brand = brands.find((b) => b.id === id)!;
     const items = highlights[id] ?? [];
+    const photos = brandGallery[id as BrandKey] ?? [];
+    const extraImage = photos[0]?.src;
     return (
       <>
-        <BrandHero brand={brand}>
+        <BrandHero brand={brand} extraImage={extraImage}>
           <p
             className="hero-in mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-400"
             style={{ animationDelay: "0.3s" }}
@@ -125,9 +127,24 @@ export function createBrandPage(id: string) {
           </BrandSection>
         )}
 
-        <BrandSection brand={brand} eyebrow="Conteúdo" title="Galeria & detalhes em breve">
-          <ComingSoon brand={brand} />
-        </BrandSection>
+        {photos.length > 0 ? (
+          <BrandSection brand={brand} eyebrow="Galeria" title="Um olhar sobre o nosso trabalho">
+            <BrandGallery brand={brand} photos={photos} />
+            <a
+              href={waLink(brand.whatsappMsg)}
+              target="_blank"
+              rel="noreferrer"
+              className="reveal mt-8 inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold transition hover:bg-white/5"
+              style={{ borderColor: brand.accent, color: brand.accent }}
+            >
+              <Icon.WhatsApp size={18} /> Falar com a {brand.name}
+            </a>
+          </BrandSection>
+        ) : (
+          <BrandSection brand={brand} eyebrow="Conteúdo" title="Galeria & detalhes em breve">
+            <ComingSoon brand={brand} />
+          </BrandSection>
+        )}
 
         {/* Navegação para outras marcas */}
         <div className="py-10">

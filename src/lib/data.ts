@@ -234,6 +234,16 @@ import cleanWindow from "../assets/clean/clean-window.jpg";
 import cleanMattress from "../assets/clean/clean-mattress.jpg";
 import cleanChairs from "../assets/clean/clean-chairs.jpg";
 import cleanExtraction from "../assets/clean/clean-sofa-extraction.jpg";
+import realDeliveriesRider from "../assets/real/deliveries-rider.jpg";
+import realDeliveriesPackage from "../assets/real/deliveries-package.jpg";
+import realGamesSetup from "../assets/real/games-setup.jpg";
+import realWorksSite from "../assets/real/works-site.jpg";
+import realFoodWarehouse from "../assets/real/food-warehouse.jpg";
+import realFoodProducts from "../assets/real/food-products.jpg";
+import realMotorsCars from "../assets/real/motors-cars.jpg";
+import realMoneyCount from "../assets/real/money-counting.jpg";
+import realDripSneakers from "../assets/real/drip-sneakers.jpg";
+import realEquipaTeam from "../assets/real/equipa-team.jpg";
 
 // Imagens geradas (hero por marca)
 import heroApple from "../assets/gen/hero-apple.jpg";
@@ -264,6 +274,52 @@ export const img = {
   cleanMattress,
   cleanChairs,
   cleanExtraction,
+  deliveriesRider: realDeliveriesRider,
+  deliveriesPackage: realDeliveriesPackage,
+  gamesSetup: realGamesSetup,
+  worksSite: realWorksSite,
+  foodWarehouse: realFoodWarehouse,
+  foodProducts: realFoodProducts,
+  motorsCars: realMotorsCars,
+  moneyCount: realMoneyCount,
+  dripSneakers: realDripSneakers,
+  equipaTeam: realEquipaTeam,
+};
+
+// Galerias por marca (fotos reais/fotorrealistas, sem overlays)
+export const brandGallery: Record<BrandKey, { src: string; label: string }[]> = {
+  apple: [
+    { src: realTechVitrine, label: "Vitrine da loja" },
+    { src: realTechIphones, label: "iPhones em exposição" },
+    { src: realTechInstall, label: "Instalação técnica" },
+    { src: realTechBoxes, label: "Stock de caixas" },
+  ],
+  gold: [
+    { src: realGoldScale, label: "Balança de precisão" },
+    { src: realGoldRingScale, label: "Anel e avaliação" },
+    { src: realGoldRingClose, label: "Anel de ouro" },
+    { src: realGoldTradeFlyer, label: "Compra de ouro" },
+  ],
+  clean: [
+    { src: cleanWindow, label: "Limpeza de vidros · Pós-obra" },
+    { src: cleanExtraction, label: "Higienização de estofados" },
+    { src: cleanMattress, label: "Tratamento de colchões" },
+    { src: cleanChairs, label: "Limpeza de cadeiras" },
+  ],
+  deliveries: [
+    { src: realDeliveriesRider, label: "Estafeta na cidade" },
+    { src: realDeliveriesPackage, label: "Entrega ao domicílio" },
+  ],
+  games: [{ src: realGamesSetup, label: "Setup gaming PS5" }],
+  works: [{ src: realWorksSite, label: "Estaleiro em obra" }],
+  food: [
+    { src: realFoodWarehouse, label: "Armazém grossista" },
+    { src: realFoodProducts, label: "Produtos importados" },
+  ],
+  motors: [{ src: realMotorsCars, label: "Hyundai Elantra · i10 · KIA Rio" }],
+  money: [{ src: realMoneyCount, label: "Câmbio de divisas" }],
+  drip: [{ src: realDripSneakers, label: "Sneakers & streetwear" }],
+  equipa: [{ src: realEquipaTeam, label: "A nossa equipa" }],
 };
 
 export const socialProof = [

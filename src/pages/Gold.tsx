@@ -1,5 +1,5 @@
-import { brands, img, goldItems, waLink } from "../lib/data";
-import { BrandHero, BrandSection } from "../components/BrandHero";
+import { brands, img, goldItems, waLink, brandGallery } from "../lib/data";
+import { BrandHero, BrandSection, BrandGallery } from "../components/BrandHero";
 import { Icon } from "../components/Icon";
 import { useReveal } from "../hooks/useReveal";
 
@@ -110,6 +110,10 @@ export default function GoldPage() {
         >
           <Icon.Ring size={20} /> Avaliar o meu ouro
         </a>
+      </BrandSection>
+
+      <BrandSection brand={brand} eyebrow="Galeria" title="O nosso trabalho">
+        <BrandGallery brand={brand} photos={brandGallery.gold} />
       </BrandSection>
     </>
   );

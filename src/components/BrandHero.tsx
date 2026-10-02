@@ -155,6 +155,42 @@ export function BrandSection({
   );
 }
 
+export function BrandGallery({
+  brand,
+  photos,
+}: {
+  brand: Brand;
+  photos: { src: string; label: string }[];
+}) {
+  return (
+    <div className="grid gap-4 sm:grid-cols-2">
+      {photos.map((g, i) => (
+        <figure
+          key={g.label}
+          className="reveal group relative overflow-hidden rounded-2xl border"
+          style={{
+            borderColor: `${brand.accent}25`,
+            transitionDelay: `${i * 80}ms`,
+          }}
+        >
+          <img
+            src={g.src}
+            alt={g.label}
+            className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+          <figcaption
+            className="absolute inset-x-0 bottom-0 flex items-end p-4 text-sm font-semibold text-white"
+            style={{ background: `linear-gradient(to top, rgba(0,0,0,0.75), transparent)` }}
+          >
+            {g.label}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  );
+}
+
 export function ComingSoon({ brand }: { brand: Brand }) {
   return (
     <div
