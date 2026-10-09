@@ -1,0 +1,67 @@
+{
+  "siteUrl": "https://telmosalambi.github.io/Plug/",
+  "siteName": "Grupo Plug Business",
+  "ogImage": "og-image.jpg",
+  "routes": [
+    {
+      "path": "/",
+      "title": "Grupo Plug Business | Lubango, Angola",
+      "description": "Conheça o Grupo Plug Business, em Lubango, Angola, e as suas marcas de tecnologia, ouro, limpeza, entregas, jogos, obras, alimentos, viaturas, câmbio e moda."
+    },
+    {
+      "path": "/marcas/apple",
+      "title": "Plug Apple | Grupo Plug Business",
+      "description": "Conheça a Plug Apple: iPhones, AirPods, acessórios e assistência técnica do Grupo Plug Business, em Lubango, Angola."
+    },
+    {
+      "path": "/marcas/gold",
+      "title": "Plug Gold | Compra e troca de ouro",
+      "description": "Conheça a Plug Gold: compra, avaliação e troca de artigos de ouro, com atendimento do Grupo Plug Business em Lubango, Angola."
+    },
+    {
+      "path": "/marcas/clean",
+      "title": "Plug Clean | Limpeza profissional",
+      "description": "Consulte os serviços e preços da Plug Clean para sofás, colchões, cadeiras e interiores de viaturas, em Lubango, Angola."
+    },
+    {
+      "path": "/marcas/deliveries",
+      "title": "Plug Entregas | Grupo Plug Business",
+      "description": "Conheça o serviço de entregas Plug Entregas e fale com o Grupo Plug Business para confirmar disponibilidade e zonas de atendimento."
+    },
+    {
+      "path": "/marcas/games",
+      "title": "Plug Games | Grupo Plug Business",
+      "description": "Consolas PlayStation, jogos e acessórios de gaming da Plug Games. Consulte disponibilidade com o Grupo Plug Business."
+    },
+    {
+      "path": "/marcas/works",
+      "title": "Plug Obras | Construção e acabamentos",
+      "description": "Conheça os serviços de construção e acabamentos da Plug Obras, uma marca do Grupo Plug Business em Angola."
+    },
+    {
+      "path": "/marcas/food",
+      "title": "Plug Food | Grupo Plug Business",
+      "description": "Conheça a Plug Food e os seus produtos alimentares e bens provenientes da Namíbia. Contacte o Grupo Plug Business para saber mais."
+    },
+    {
+      "path": "/marcas/motors",
+      "title": "Plug Motors | Viaturas",
+      "description": "Conheça a Plug Motors, marca de venda de viaturas do Grupo Plug Business. Consulte disponibilidade e condições."
+    },
+    {
+      "path": "/marcas/money",
+      "title": "Plug Money | Câmbio de divisas",
+      "description": "Conheça a Plug Money e contacte o Grupo Plug Business para informações sobre compra e venda de divisas e condições de atendimento."
+    },
+    {
+      "path": "/marcas/drip",
+      "title": "Plug Drip | Moda e calçado",
+      "description": "Conheça a Plug Drip: roupa, calçado e acessórios de moda urbana do Grupo Plug Business."
+    },
+    {
+      "path": "/marcas/equipa",
+      "title": "A nossa equipa | Grupo Plug Business",
+      "description": "Conheça a equipa multidisciplinar do Grupo Plug Business, grupo empresarial angolano sediado em Lubango."
+    }
+  ]
+}

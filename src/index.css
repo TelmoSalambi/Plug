@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap");
 @import "tailwindcss";
 
 @theme {
@@ -6,44 +6,80 @@
   --font-sans: "Inter", system-ui, sans-serif;
   --color-gold: #c9a227;
   --color-gold-light: #f0c94a;
-  --color-ink: #0a0a0a;
-  --color-ink-2: #121212;
+  --color-ink: #090a0d;
+  --color-ink-2: #111318;
+}
+
+:root {
+  color-scheme: dark;
+  --page-bg: #090a0d;
+  --surface: #101217;
+  --surface-raised: #151820;
+  --surface-border: rgba(255, 255, 255, 0.09);
+  --surface-border-strong: rgba(240, 201, 74, 0.26);
+  --text-primary: #f5f5f4;
+  --text-secondary: #a8a9af;
+  --gold: #c9a227;
+  --gold-bright: #f0c94a;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 html {
   scroll-behavior: smooth;
-  /* escala geral do site (+6% em todo o conteúdo rem-based) */
-  font-size: 17px;
+  scroll-padding-top: 6rem;
+  font-size: 16px;
+  background: var(--page-bg);
 }
 
-@media (min-width: 1536px) {
+@media (min-width: 1600px) {
   html {
-    font-size: 18px;
+    font-size: 17px;
   }
 }
 
 body {
-  background-color: #0a0a0a;
-  color: #f5f5f4;
+  min-width: 320px;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 50% -28rem, rgba(201, 162, 39, 0.075), transparent 52rem),
+    var(--page-bg);
+  color: var(--text-primary);
   font-family: var(--font-sans);
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
 }
 
 ::selection {
-  background: #c9a227;
-  color: #0a0a0a;
+  background: var(--gold-bright);
+  color: var(--page-bg);
 }
 
-/* Custom scrollbar */
+:focus-visible {
+  outline: 2px solid var(--gold-bright);
+  outline-offset: 3px;
+}
+
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--page-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#c9a227, #7a6115);
-  border-radius: 10px;
+  border: 2px solid var(--page-bg);
+  border-radius: 999px;
+  background: linear-gradient(var(--gold), #765f1b);
 }
 
 .font-display {
@@ -51,179 +87,217 @@ body {
 }
 
 .text-gradient-gold {
-  background: linear-gradient(120deg, #f0c94a 0%, #c9a227 40%, #f0c94a 80%);
+  background: linear-gradient(120deg, #f0c94a 0%, #d5ad37 55%, #f0c94a 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .gold-glow {
-  box-shadow: 0 0 40px -8px rgba(201, 162, 39, 0.55);
+  box-shadow: 0 8px 26px -18px rgba(240, 201, 74, 0.72);
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(201, 162, 39, 0.15);
+  border: 1px solid var(--surface-border);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+  backdrop-filter: blur(16px);
 }
 
 .glass:hover {
-  border-color: rgba(201, 162, 39, 0.4);
+  border-color: var(--surface-border-strong);
 }
 
-/* Fade / reveal on scroll */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+.site-container {
+  width: min(1440px, calc(100% - 2.5rem));
+  margin-inline: auto;
 }
-.reveal.is-visible {
-  opacity: 1;
+
+@media (min-width: 640px) {
+  .site-container {
+    width: min(1440px, calc(100% - 4rem));
+  }
+}
+
+@media (min-width: 1024px) {
+  .site-container {
+    width: min(1440px, calc(100% - 7rem));
+  }
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--gold-bright);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.section-title {
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+
+.section-copy {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition:
+    transform 180ms var(--ease-standard),
+    color 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.button-primary {
+  color: #0a0a0a;
+  background: linear-gradient(115deg, var(--gold-bright), var(--gold));
+  box-shadow: 0 8px 26px -18px rgba(240, 201, 74, 0.8);
+}
+
+.button-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -18px rgba(240, 201, 74, 0.9);
+}
+
+.button-secondary {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #f5f5f4;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.button-secondary:hover {
+  transform: translateY(-2px);
+  border-color: rgba(240, 201, 74, 0.52);
+  color: var(--gold-bright);
+  background: rgba(201, 162, 39, 0.07);
+}
+
+.button-primary:active,
+.button-secondary:active {
   transform: translateY(0);
 }
 
-/* Variantes direcionais do reveal */
-.reveal-left {
-  transform: translateX(-36px);
-}
-.reveal-right {
-  transform: translateX(36px);
-}
-.reveal-zoom {
-  transform: scale(0.94);
-}
-.reveal.is-visible.reveal-left,
-.reveal.is-visible.reveal-right {
-  transform: translateX(0);
-}
-.reveal.is-visible.reveal-zoom {
-  transform: scale(1);
+/* Scroll reveals enhance orientation but never hide content if JS is unavailable. */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 420ms var(--ease-standard),
+    transform 420ms var(--ease-standard),
+    border-color 180ms ease,
+    background-color 180ms ease;
 }
 
-/* Entrada encadeada do hero (stagger no load) */
+.js-motion .reveal:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+.js-motion .reveal-left:not(.is-visible) {
+  transform: translateX(-14px);
+}
+
+.js-motion .reveal-right:not(.is-visible) {
+  transform: translateX(14px);
+}
+
+.js-motion .reveal-zoom:not(.is-visible) {
+  transform: scale(0.985);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.page-enter {
+  animation: pageEnter 240ms ease-out both;
+}
+
 @keyframes heroIn {
   from {
     opacity: 0;
-    transform: translateY(34px);
+    transform: translateY(12px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 .hero-in {
   opacity: 0;
-  animation: heroIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroIn 480ms var(--ease-standard) forwards;
 }
 
-/* Brilho deslizante nos botões premium (shine sweep) */
 .btn-shine {
   position: relative;
   overflow: hidden;
 }
+
 .btn-shine::after {
-  content: "";
   position: absolute;
-  top: 0;
-  left: -80%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.55), transparent);
-  transform: skewX(-20deg);
-  transition: left 0.6s ease;
+  inset: 0 auto 0 -100%;
+  width: 50%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  content: "";
   pointer-events: none;
+  transform: skewX(-20deg);
+  transition: left 520ms ease;
 }
+
 .btn-shine:hover::after {
-  left: 130%;
-}
-
-/* Pulso suave do botão flutuante de WhatsApp */
-@keyframes waPulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45);
-  }
-  70% {
-    box-shadow: 0 0 0 16px rgba(37, 211, 102, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
-  }
-}
-.animate-wa-pulse {
-  animation: waPulse 2.4s ease-out infinite;
-}
-
-/* Marquee infinito (faixa de tipos de ouro) */
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-.marquee-mask {
-  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
-}
-
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.7;
-  }
-  90% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(-120px) translateX(20px);
-    opacity: 0;
-  }
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-  100% {
-    background-position: 200% center;
-  }
-}
-
-.animate-shimmer {
-  background-size: 200% auto;
-  animation: shimmer 4s linear infinite;
+  left: 150%;
 }
 
 @keyframes fadeSlide {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-.animate-fade-slide {
-  animation: fadeSlide 0.8s ease forwards;
-}
 
-@keyframes spinSlow {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.animate-spin-slow {
-  animation: spinSlow 24s linear infinite;
+.animate-fade-slide {
+  animation: fadeSlide 300ms var(--ease-standard) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -236,11 +310,15 @@ body {
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 
-  .reveal {
+  .reveal,
+  .js-motion .reveal:not(.is-visible),
+  .js-motion .reveal-left:not(.is-visible),
+  .js-motion .reveal-right:not(.is-visible),
+  .js-motion .reveal-zoom:not(.is-visible) {
     opacity: 1;
     transform: none;
   }
@@ -252,10 +330,5 @@ body {
 
   .btn-shine::after {
     display: none;
-  }
-
-  .animate-wa-pulse,
-  .animate-marquee {
-    animation: none;
   }
 }

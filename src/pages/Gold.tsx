@@ -16,7 +16,7 @@ export default function GoldPage() {
   useReveal();
   return (
     <>
-      <BrandHero brand={brand} extraImage={img.goldRing}>
+      <BrandHero brand={brand}>
         <p
           className="hero-in mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-400"
           style={{ animationDelay: "0.3s" }}
@@ -34,7 +34,13 @@ export default function GoldPage() {
       </BrandHero>
 
       {/* Colagem de fotos */}
-      <BrandSection brand={brand} eyebrow="Como trabalhamos" title="Pesagem justa, dinheiro na mão">
+      <BrandSection
+        brand={brand}
+        id="servicos"
+        eyebrow="Como trabalhamos"
+        title="Pesagem clara, pagamento imediato"
+        description="A avaliação é feita consigo e o valor é confirmado antes de qualquer decisão."
+      >
         <div className="grid gap-10 lg:grid-cols-2">
           <div className="reveal reveal-zoom grid grid-cols-2 gap-4">
             <div className="col-span-2 overflow-hidden rounded-2xl border border-[#C9A227]/25">
@@ -86,33 +92,32 @@ export default function GoldPage() {
       </BrandSection>
 
       {/* Tipos de ouro */}
-      <BrandSection brand={brand} eyebrow="Ouro" title="Compramos todo o tipo de ouro">
-        <div className="reveal rounded-3xl glass p-8">
-          <div className="marquee-mask overflow-hidden">
-            <div className="animate-marquee flex w-max gap-3">
-              {[...goldItems, ...goldItems].map((g, i) => (
-                <span
-                  key={`${g}-${i}`}
-                  className="shrink-0 rounded-full border border-[#C9A227]/30 bg-[#C9A227]/5 px-4 py-2 text-sm text-stone-200"
-                >
-                  {g}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
+      <BrandSection brand={brand} eyebrow="Ouro que avaliamos" title="Aceitamos diferentes peças">
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {goldItems.map((item, index) => (
+            <li
+              key={item}
+              className="reveal flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.02] px-4 py-4 text-sm text-stone-200"
+              style={{ transitionDelay: `${index * 25}ms` }}
+            >
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#C9A227]/[0.08] text-[#F0C94A]">
+                <Icon.Ring size={17} />
+              </span>
+              {item}
+            </li>
+          ))}
+        </ul>
         <a
           href={waLink(brand.whatsappMsg)}
           target="_blank"
           rel="noreferrer"
-          className="reveal mt-8 inline-flex items-center gap-2 btn-shine rounded-full px-7 py-3.5 font-semibold text-[#0A0A0A] transition hover:brightness-110 gold-glow"
-          style={{ background: `linear-gradient(to right, ${brand.accent}, #C9A227)` }}
+          className="button-primary btn-shine reveal mt-8"
         >
-          <Icon.Ring size={20} /> Avaliar o meu ouro
+          <Icon.Ring size={18} /> Avaliar o meu ouro
         </a>
       </BrandSection>
 
-      <BrandSection brand={brand} eyebrow="Galeria" title="O nosso trabalho">
+      <BrandSection brand={brand} id="galeria" eyebrow="Galeria" title="O nosso trabalho">
         <BrandGallery brand={brand} photos={brandGallery.gold} />
       </BrandSection>
     </>

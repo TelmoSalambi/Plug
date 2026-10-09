@@ -1,173 +1,231 @@
+import { Link } from "react-router-dom";
 import { brands, brandGallery, waLink, type BrandKey } from "../lib/data";
-import { BrandHero, BrandSection, BrandGallery, ComingSoon } from "../components/BrandHero";
+import { BrandHero, BrandSection, BrandGallery } from "../components/BrandHero";
 import { Icon, type IconKey } from "../components/Icon";
 import { useReveal } from "../hooks/useReveal";
-import { Link } from "react-router-dom";
 
-// Cada item da lista tem: titulo, descricao, icone
+// Highlights por marca: texto factual da oferta conhecida de cada área.
 type Highlight = { icon: IconKey; title: string; desc: string };
 
-const highlights: Record<string, Highlight[]> = {
+const highlights: Partial<Record<BrandKey, Highlight[]>> = {
   deliveries: [
     {
       icon: "Truck",
-      title: "Entregas rápidas",
-      desc: "Entregas ao domicílio nas províncias onde operamos.",
+      title: "Entregas ao domicílio",
+      desc: "Entrega de produtos comprados connosco até à sua porta.",
     },
     {
-      icon: "Clock",
-      title: "Pontualidade",
-      desc: "Prazos cumpridos, com acompanhamento em tempo real.",
+      icon: "Map",
+      title: "Várias localidades",
+      desc: "Serviço disponível nas províncias onde o grupo opera.",
     },
-    { icon: "Shield", title: "Segurança", desc: "Produtos transportados com todo o cuidado." },
+    {
+      icon: "Phone",
+      title: "Acompanhamento directo",
+      desc: "Combine os detalhes da entrega directamente com a equipa.",
+    },
   ],
   games: [
-    { icon: "Gamepad", title: "Playstation", desc: "Consolas PS4, PS5 e acessórios originais." },
+    {
+      icon: "Gamepad",
+      title: "Consolas PlayStation",
+      desc: "Consolas PS4 e PS5 para diferentes formas de jogar.",
+    },
     {
       icon: "Headphones",
-      title: "Gaming",
-      desc: "Headsets, comandos e jogos para a sua experiência.",
+      title: "Comandos & acessórios",
+      desc: "Comandos DualShock e DualSense, jogos e acessórios.",
     },
-    { icon: "Shield", title: "Garantia", desc: "Produtos verificados com garantia incluída." },
+    {
+      icon: "Shield",
+      title: "Equipamento verificado",
+      desc: "Os equipamentos são verificados antes da venda.",
+    },
   ],
   works: [
-    { icon: "Tool", title: "Construção", desc: "Obras e construção civil com equipas próprias." },
-    { icon: "Users", title: "Equipa", desc: "Profissionais experientes no terreno." },
+    {
+      icon: "Tool",
+      title: "Construção & instalação",
+      desc: "Serviços técnicos para espaços residenciais e comerciais.",
+    },
+    {
+      icon: "Users",
+      title: "Equipas no terreno",
+      desc: "Profissionais próprios acompanham os trabalhos.",
+    },
     {
       icon: "Award",
       title: "Acabamentos",
-      desc: "Acabamentos de alta qualidade em casas e escritórios.",
+      desc: "Trabalhos de acabamento em casas e escritórios.",
     },
   ],
   food: [
     {
       icon: "Food",
-      title: "Produtos da Namíbia",
-      desc: "Produtos alimentares vindos directamente da Namíbia.",
+      title: "Produtos alimentares",
+      desc: "Selecção de produtos alimentares e bens vindos da Namíbia.",
     },
-    { icon: "Truck", title: "Importação directa", desc: "Qualidade e variedade exclusivas." },
-    { icon: "Pin", title: "Entrega em Lubango", desc: "Entregas locais na cidade de Lubango." },
+    {
+      icon: "Truck",
+      title: "Importação directa",
+      desc: "Produtos importados para venda através da Plug Food.",
+    },
+    {
+      icon: "Phone",
+      title: "Consulte a disponibilidade",
+      desc: "Contacte a equipa para saber os produtos disponíveis.",
+    },
   ],
   motors: [
-    { icon: "Car", title: "Viaturas", desc: "Viaturas novas e usadas com documentação tratada." },
-    { icon: "Shield", title: "Confiáveis", desc: "Veículos inspeccionados antes da venda." },
-    { icon: "Cash", title: "Financiamento", desc: "Soluções de pagamento flexíveis." },
+    {
+      icon: "Car",
+      title: "Viaturas novas e usadas",
+      desc: "Opções de viaturas para diferentes necessidades.",
+    },
+    {
+      icon: "Shield",
+      title: "Documentação tratada",
+      desc: "A equipa acompanha o processo de documentação.",
+    },
+    {
+      icon: "Phone",
+      title: "Atendimento directo",
+      desc: "Fale com a Plug Motors para consultar as viaturas disponíveis.",
+    },
   ],
   money: [
-    { icon: "Cash", title: "Dólar & Euro", desc: "Compra e venda de divisas estrangeiras." },
-    { icon: "Shield", title: "Segurança", desc: "Transacções seguras e transparentes." },
-    { icon: "Clock", title: "Na hora", desc: "Câmbio imediato com cotação justa." },
+    {
+      icon: "Cash",
+      title: "Compra & venda de divisas",
+      desc: "Operações com dólar americano, euro, kwanzas e outras moedas.",
+    },
+    {
+      icon: "Shield",
+      title: "Transacções seguras",
+      desc: "Combine os detalhes da operação directamente com a equipa.",
+    },
+    {
+      icon: "Clock",
+      title: "Cotação actualizada",
+      desc: "Consulte a cotação disponível no momento do contacto.",
+    },
   ],
   drip: [
-    { icon: "Shirt", title: "Moda urbana", desc: "Roupas, sapatos e acessórios de streetwear." },
-    { icon: "Award", title: "Tendências", desc: "Peças actuais para homem e senhora." },
-    { icon: "Pin", title: "Em Lubango", desc: "Loja física em Lubango com provas." },
+    { icon: "Shirt", title: "Moda urbana", desc: "Roupas, calçado e acessórios de streetwear." },
+    {
+      icon: "Award",
+      title: "Novas opções",
+      desc: "Consulte a equipa sobre as peças e tamanhos disponíveis.",
+    },
+    {
+      icon: "Pin",
+      title: "Loja em Lubango",
+      desc: "Visite a loja ou fale connosco para obter informações.",
+    },
   ],
   equipa: [
     {
       icon: "Users",
-      title: "A nossa gente",
+      title: "Equipa multidisciplinar",
       desc: "Técnicos, ourives, motoristas, vendedores e gestores.",
     },
-    { icon: "Flag", title: "100% angolana", desc: "Uma equipa jovem, angolana e em crescimento." },
+    {
+      icon: "Flag",
+      title: "Grupo angolano",
+      desc: "Uma empresa angolana com base em Lubango, Huíla.",
+    },
     {
       icon: "Handshake",
-      title: "Ao seu dispor",
-      desc: "Todos os dias trabalhamos para melhor o servir.",
+      title: "Contacto próximo",
+      desc: "A equipa está disponível para orientar os clientes para a marca certa.",
     },
   ],
 };
 
-export function createBrandPage(id: string) {
-  return function Page() {
+export function createBrandPage(id: BrandKey) {
+  return function BrandPage() {
     useReveal();
-    const brand = brands.find((b) => b.id === id)!;
+    const brand = brands.find((item) => item.id === id)!;
     const items = highlights[id] ?? [];
-    const photos = brandGallery[id as BrandKey] ?? [];
-    const extraImage = photos[0]?.src;
+    const photos = brandGallery[id];
+
     return (
       <>
-        <BrandHero brand={brand} extraImage={extraImage}>
-          <p
-            className="hero-in mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-400"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <span className="flex items-center gap-2">
-              <Icon.Shield size={16} style={{ color: brand.accent }} /> Marca Plug Business
-            </span>
-            <span className="flex items-center gap-2">
-              <Icon.WhatsApp size={16} style={{ color: brand.accent }} /> Atendimento via WhatsApp
-            </span>
-          </p>
-        </BrandHero>
+        <BrandHero brand={brand} />
 
-        {items.length > 0 && (
-          <BrandSection brand={brand} eyebrow="Destaques" title="O que oferecemos">
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {items.map((it, i) => {
-                const Ico = Icon[it.icon];
-                return (
-                  <div
-                    key={it.title}
-                    className="reveal glass rounded-2xl p-7"
-                    style={{ transitionDelay: `${i * 80}ms` }}
-                  >
-                    <div
-                      className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
-                      style={{ background: `${brand.accent}15`, color: brand.accent }}
+        <BrandSection
+          brand={brand}
+          id="servicos"
+          eyebrow="O que fazemos"
+          title="Serviços e produtos"
+        >
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((item, index) => {
+              const Ico = Icon[item.icon];
+              return (
+                <article
+                  key={item.title}
+                  className="reveal group rounded-2xl border border-white/[0.08] bg-white/[0.02] p-5 transition-colors hover:border-white/[0.16] hover:bg-white/[0.035] sm:p-6"
+                  style={{ transitionDelay: `${index * 35}ms` }}
+                >
+                  <div className="flex items-center justify-between">
+                    <span
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border"
+                      style={{
+                        borderColor: `${brand.accent}35`,
+                        background: `${brand.accent}10`,
+                        color: brand.accent,
+                      }}
                     >
-                      <Ico size={24} />
-                    </div>
-                    <h3 className="font-display text-lg font-bold text-white">{it.title}</h3>
-                    <p className="mt-2 text-sm text-stone-400">{it.desc}</p>
+                      <Ico size={21} />
+                    </span>
+                    <span className="font-display text-sm font-semibold tabular-nums text-white/30">
+                      0{index + 1}
+                    </span>
                   </div>
-                );
-              })}
-            </div>
-          </BrandSection>
-        )}
-
-        {photos.length > 0 ? (
-          <BrandSection brand={brand} eyebrow="Galeria" title="Um olhar sobre o nosso trabalho">
-            <BrandGallery brand={brand} photos={photos} />
-            <a
-              href={waLink(brand.whatsappMsg)}
-              target="_blank"
-              rel="noreferrer"
-              className="reveal mt-8 inline-flex items-center gap-2 rounded-full border px-6 py-3 text-sm font-semibold transition hover:bg-white/5"
-              style={{ borderColor: brand.accent, color: brand.accent }}
-            >
-              <Icon.WhatsApp size={18} /> Falar com a {brand.name}
-            </a>
-          </BrandSection>
-        ) : (
-          <BrandSection brand={brand} eyebrow="Conteúdo" title="Galeria & detalhes em breve">
-            <ComingSoon brand={brand} />
-          </BrandSection>
-        )}
-
-        {/* Navegação para outras marcas */}
-        <div className="py-10">
-          <div className="mx-auto max-w-[1760px] px-5 sm:px-8 lg:px-14">
-            <div className="reveal flex flex-wrap items-center justify-between gap-4 border-t border-white/5 pt-8">
-              <p className="text-sm text-stone-400">Conheça as outras marcas do grupo:</p>
-              <div className="flex flex-wrap gap-2">
-                {brands
-                  .filter((b) => b.id !== brand.id)
-                  .slice(0, 6)
-                  .map((b) => (
-                    <Link
-                      key={b.id}
-                      to={`/marcas/${b.id}`}
-                      className="rounded-full border border-white/10 px-3 py-1.5 text-xs text-stone-300 transition hover:border-[#C9A227] hover:text-[#F0C94A]"
-                    >
-                      {b.name}
-                    </Link>
-                  ))}
-              </div>
-            </div>
+                  <h3 className="mt-5 font-semibold text-white">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-400">{item.desc}</p>
+                </article>
+              );
+            })}
           </div>
-        </div>
+          <a
+            href={waLink(brand.whatsappMsg)}
+            target="_blank"
+            rel="noreferrer"
+            className="button-primary btn-shine reveal mt-8"
+          >
+            <Icon.WhatsApp size={18} /> Contactar {brand.name}
+          </a>
+        </BrandSection>
+
+        {photos.length > 0 && (
+          <BrandSection
+            brand={brand}
+            id="galeria"
+            eyebrow="Galeria"
+            title="Um olhar sobre o nosso trabalho"
+          >
+            <BrandGallery brand={brand} photos={photos} />
+          </BrandSection>
+        )}
+
+        <section className="py-12 sm:py-16">
+          <div className="site-container flex flex-col gap-5 rounded-2xl border border-white/[0.08] bg-white/[0.02] p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+            <div>
+              <p className="section-kicker">Grupo Plug Business</p>
+              <h2 className="mt-2 font-display text-xl font-bold text-white sm:text-2xl">
+                Procura outro serviço?
+              </h2>
+              <p className="mt-1 text-sm text-stone-400">
+                Explore as restantes áreas do grupo num só lugar.
+              </p>
+            </div>
+            <Link to={{ pathname: "/", hash: "#marcas" }} className="button-secondary shrink-0">
+              Ver todas as marcas <Icon.ArrowRight size={17} />
+            </Link>
+          </div>
+        </section>
       </>
     );
   };

@@ -4,7 +4,7 @@ import {
   WHATSAPP_LIST,
   cleanPrices,
   formatPhone,
-  provinces,
+  serviceAreas,
   waLink,
   faqs,
   goldItems,
@@ -64,8 +64,8 @@ describe("formatPhone", () => {
 });
 
 describe("dados da landing", () => {
-  it("lista 4 províncias", () => {
-    expect(provinces).toEqual(["Lubango", "Namibe", "Benguela", "Luanda"]);
+  it("lista 4 localidades de atendimento", () => {
+    expect(serviceAreas).toEqual(["Lubango", "Namibe", "Benguela", "Luanda"]);
   });
 
   it("tabela de preços tem item e preço em todos os registos", () => {

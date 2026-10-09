@@ -253,6 +253,32 @@ export const Icon = {
       <path d="M5 21V4M5 4h11l-2 4 2 4H5" />
     </svg>
   ),
+  Search: (p: IconProps) => (
+    <svg {...base(p)}>
+      <circle cx="10.8" cy="10.8" r="6.8" />
+      <path d="m16 16 4.5 4.5" />
+    </svg>
+  ),
+  ArrowRight: (p: IconProps) => (
+    <svg {...base(p)}>
+      <path d="M4 12h15M13 5l7 7-7 7" />
+    </svg>
+  ),
+  ArrowLeft: (p: IconProps) => (
+    <svg {...base(p)}>
+      <path d="M20 12H5m7 7-7-7 7-7" />
+    </svg>
+  ),
+  ArrowDown: (p: IconProps) => (
+    <svg {...base(p)}>
+      <path d="M12 4v15m7-7-7 7-7-7" />
+    </svg>
+  ),
+  X: (p: IconProps) => (
+    <svg {...base(p)}>
+      <path d="m18 6-12 12M6 6l12 12" />
+    </svg>
+  ),
 };
 
 export type IconKey = keyof typeof Icon;

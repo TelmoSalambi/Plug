@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VITE_BASE_PATH: /Plug/
+      VITE_SITE_URL: https://telmosalambi.github.io/Plug/
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,13 +27,28 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "npm"
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Build site
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Test
+        run: npm test
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+
+      - name: Build site and generate route pages
         run: npm run build
 
       - name: Upload GitHub Pages artifact

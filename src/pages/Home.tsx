@@ -14,8 +14,8 @@ export default function Home() {
     <>
       <Hero />
       <SocialProof />
-      <HowItWorks />
       <BrandsGrid />
+      <HowItWorks />
       <Benefits />
       <Testimonials />
       <FAQ />

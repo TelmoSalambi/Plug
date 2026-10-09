@@ -1,103 +1,93 @@
 # Grupo Plug Business — Website
 
-Website multi-página do **Grupo Plug Business** (Lubango, Angola), um grupo
-empresarial com **11 marcas especializadas**:
+Website do **Grupo Plug Business**, sediado em Lubango, Angola, com 11 marcas:
 
-| Marca         | Área                                                      |
-| ------------- | --------------------------------------------------------- |
-| Plug Apple    | Produtos Apple (iPhone, AirPods, acessórios, assistência) |
-| Plug Gold     | Compra e troca de ouro (Ourivesaria)                      |
-| Plug Clean    | Limpeza a seco (sofás, viaturas, colchões, cadeiras)      |
-| Plug Entregas | Entregas rápidas                                          |
-| Plug Games    | Consolas Playstation, comandos e jogos                    |
-| Plug Obras    | Construção e acabamentos                                  |
-| Plug Food     | Produtos alimentares da Namíbia                           |
-| Plug Motors   | Venda de viaturas                                         |
-| Plug Money    | Compra e venda de divisas                                 |
-| Plug Drip     | Moda, roupas e calçado                                    |
-| Plug Equipa   | A equipa do grupo                                         |
+| Marca         | Área                                            |
+| ------------- | ----------------------------------------------- |
+| Plug Apple    | Produtos Apple, acessórios e assistência        |
+| Plug Gold     | Compra e troca de ouro                          |
+| Plug Clean    | Limpeza de sofás, colchões, cadeiras e viaturas |
+| Plug Entregas | Entregas                                        |
+| Plug Games    | Consolas, jogos e acessórios                    |
+| Plug Obras    | Construção e acabamentos                        |
+| Plug Food     | Produtos alimentares e bens da Namíbia          |
+| Plug Motors   | Viaturas                                        |
+| Plug Money    | Compra e venda de divisas                       |
+| Plug Drip     | Moda e calçado                                  |
+| Plug Equipa   | Equipa do grupo                                 |
 
 ## Arquitectura
 
-É uma **SPA com múltiplas rotas** (React Router em modo _hash_) que gera um único
-ficheiro `dist/index.html` — funciona em subpastas, GitHub Pages e até via `file://`.
+Aplicação React com **rotas reais** através de React Router. O build cria uma página HTML de entrada para cada marca, com título, descrição, canonical e metadados de partilha próprios. O conteúdo da aplicação é apresentado no cliente.
 
+```text
+/                    Página inicial
+/marcas/apple        Plug Apple
+/marcas/gold         Plug Gold
+/marcas/clean        Plug Clean e tabela de preços
+/marcas/...          Páginas das outras marcas
 ```
-/                Página inicial (apresentação do grupo)
-/marcas/apple    Página da Plug Apple
-/marcas/gold     Página da Plug Gold
-/marcas/clean    Página da Plug Clean (+ tabela de preços)
-/marcas/...      Página de cada uma das outras 8 marcas
-```
+
+As páginas são geradas para alojamento estático no GitHub Pages. O site deve ser servido por HTTP/HTTPS; abrir o `index.html` directamente com `file://` não é suportado pela navegação por rotas.
 
 ## Stack
 
-| Camada    | Tecnologia                                     |
-| --------- | ---------------------------------------------- |
-| UI        | React 19 + TypeScript 5 (strict)               |
-| Rotas     | react-router-dom (HashRouter)                  |
-| Build     | Vite 7 (`vite-plugin-singlefile` → HTML único) |
-| Estilo    | Tailwind CSS v4                                |
-| Qualidade | ESLint 10 + Prettier 3                         |
-| Testes    | Vitest 5 + Testing Library (jsdom)             |
+| Camada    | Tecnologia                           |
+| --------- | ------------------------------------ |
+| UI        | React 19 + TypeScript 5 (strict)     |
+| Rotas     | React Router (`BrowserRouter`)       |
+| Build     | Vite 7 + geração das páginas de rota |
+| Estilo    | Tailwind CSS v4                      |
+| Qualidade | ESLint 10 + Prettier 3               |
+| Testes    | Vitest 5 + Testing Library           |
 
 ## Comandos
 
 ```bash
-npm ci               # instalar dependências
-npm run dev          # servidor de desenvolvimento (http://localhost:5173)
-npm run typecheck    # tsc --noEmit
-npm run lint         # ESLint
-npm run lint:fix     # ESLint --fix
-npm run format       # Prettier
-npm test             # Vitest
-npm run build        # typecheck + vite build → dist/index.html (ficheiro único)
-npm run preview      # pré-visualizar o build
+npm ci                 # instalar dependências
+npm run dev            # servidor de desenvolvimento
+npm run typecheck      # tsc --noEmit
+npm run lint           # ESLint
+npm run format:check   # verificar formatação
+npm test               # testes
+npm run test:coverage  # testes com relatório de cobertura
+npm run build          # valida TypeScript, compila e gera dist/ e páginas SEO
+npm run preview        # pré-visualizar o build
 ```
 
 ## Variáveis de ambiente
 
-| Variável               | Descrição                                                                                                                       | Padrão                      |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| `VITE_WHATSAPP_NUMBER` | Números de WhatsApp separados por vírgula (formato internacional, só dígitos, com `244` para Angola). O primeiro é o principal. | `244941216095,244940986180` |
+| Variável               | Descrição                                                                                                        | Padrão                                 |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
+| `VITE_WHATSAPP_NUMBER` | Números de WhatsApp, separados por vírgula, só dígitos e com indicativo internacional. O primeiro é o principal. | `244941216095,244940986180`            |
+| `VITE_SITE_URL`        | URL pública usada para canonical, sitemap e partilha.                                                            | `https://telmosalambi.github.io/Plug/` |
+| `VITE_BASE_PATH`       | Caminho-base do alojamento. O workflow do GitHub Pages define `/Plug/`.                                          | `/` localmente                         |
 
-Copie `.env.example` para `.env`.
+Copie `.env.example` para `.env` e actualize os dados quando o domínio ou os contactos mudarem. Não coloque segredos em variáveis `VITE_*`: são incluídas no código público do browser.
 
 ## Estrutura
 
-```
-index.html              # entrada (lang pt-AO, SEO/OG, JSON-LD, favicon, og:image)
-public/
-  favicon.jpg           # ícone
-  og-image.jpg          # imagem de partilha social (1200x630)
-  robots.txt · sitemap.xml
+```text
+index.html                    # entrada e metadados base
+public/                       # favicon, imagem social, robots.txt e sitemap.xml
+scripts/generate-pages.mjs    # gera páginas HTML, canonical, sitemap e 404
 src/
-  assets/               # logos, banners e imagens globais
-  assets/real/          # fotos reais da loja (organizadas e otimizadas)
-  components/           # componentes reutilizáveis (Navbar, Footer, Hero, BrandHero, ...)
-  layouts/SiteLayout.tsx  # layout comum a todas as páginas
-  pages/
-    Home.tsx            # página inicial (foco no grupo)
-    Apple.tsx           # página Plug Apple
-    Gold.tsx            # página Plug Gold
-    Clean.tsx           # página Plug Clean (+ preços)
-    BrandPlaceholder.tsx # factory de páginas para as outras 8 marcas
-  hooks/useReveal.ts    # animação de reveal no scroll
-  lib/data.ts           # conteúdo, marcas, preços, FAQs e links
-  test/setup.ts         # mocks jsdom para os testes
+  assets/                      # imagens do site
+  components/                  # Navbar, Footer, Hero, BrandHero, etc.
+  layouts/SiteLayout.tsx       # layout e metadados por rota
+  lib/data.ts                  # marcas, preços, contactos e conteúdo
+  lib/site-seo.json            # títulos e descrições por rota
+  pages/                       # páginas das marcas e página 404
+  hooks/useReveal.ts           # reveal progressivo no scroll
+.github/workflows/deploy.yml  # verificações e publicação no GitHub Pages
 ```
 
-## SEO & Acessibilidade
+## SEO, acessibilidade e publicação
 
-- Meta tags Open Graph + Twitter Card + JSON-LD `LocalBusiness`
-- `robots.txt` + `sitemap.xml`
-- Skip-link "Ir para o conteúdo principal" (acessível por teclado)
-- `aria-label` em botões, links sociais e logo; roles `menu/tab` no dropdown e carrossel
-- Respeito por `prefers-reduced-motion`
-- Estrutura semântica (`header`, `main`, `section`, `footer`, `nav`)
+- Título, canonical, Open Graph e Twitter Card específicos para cada página gerada.
+- `robots.txt` e `sitemap.xml` com URLs absolutas para o domínio público.
+- Link para saltar ao conteúdo, foco de teclado visível, textos alternativos e suporte a movimento reduzido.
+- O carrossel pode ser pausado e não roda automaticamente quando o utilizador prefere movimento reduzido.
+- O workflow executa typecheck, lint, formatação, testes, auditoria das dependências e build antes da publicação.
 
-## Build
-
-O build gera um `dist/index.html` único (JS/CSS/imagens locais inline) com caminhos
-relativos (`base: "./"`) — funciona em qualquer hospedagem e até aberto directamente
-no browser. Google Fonts é carregado via internet.
+O domínio/base do GitHub Pages está configurado no workflow. Se mudar o repositório, domínio ou contactos, actualize `VITE_BASE_PATH`, `VITE_SITE_URL` e `VITE_WHATSAPP_NUMBER` no ambiente de publicação.

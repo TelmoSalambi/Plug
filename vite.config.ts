@@ -3,41 +3,45 @@ import { fileURLToPath } from "url";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vitest/config";
-import { viteSingleFile } from "vite-plugin-singlefile";
+import { loadEnv } from "vite";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const allowedHosts = [".e2b.app", "localhost", "127.0.0.1"];
 
-// https://vite.dev/config/
-export default defineConfig({
-  // caminhos relativos: o build funciona em subpastas e via file://
-  base: "./",
-  plugins: [react(), tailwindcss(), viteSingleFile()],
-  server: {
-    host: "0.0.0.0",
-    allowedHosts: true,
-  },
-  preview: {
-    host: "0.0.0.0",
-    allowedHosts: true,
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), "VITE_");
+  const base = process.env.VITE_BASE_PATH ?? env.VITE_BASE_PATH ?? "/";
+
+  return {
+    // A base pode ser / em desenvolvimento ou /Plug/ no GitHub Pages.
+    base,
+    plugins: [react(), tailwindcss()],
+    server: {
+      host: "0.0.0.0",
+      allowedHosts,
     },
-  },
-  test: {
-    environment: "jsdom",
-    globals: true,
-    // forks não arranca workers com caminhos não-ASCII/OneDrive neste Windows
-    pool: "threads",
-    setupFiles: ["./src/test/setup.ts"],
-    include: ["src/**/*.{test,spec}.{ts,tsx}"],
-    coverage: {
-      provider: "v8",
-      reporter: ["text", "html"],
-      include: ["src/**/*.{ts,tsx}"],
-      exclude: ["src/test/**", "src/**/*.test.*", "src/main.tsx"],
+    preview: {
+      host: "0.0.0.0",
+      allowedHosts,
     },
-  },
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "src"),
+      },
+    },
+    test: {
+      environment: "jsdom",
+      globals: true,
+      pool: "threads",
+      setupFiles: ["./src/test/setup.ts"],
+      include: ["src/**/*.{test,spec}.{ts,tsx}"],
+      coverage: {
+        provider: "v8",
+        reporter: ["text", "html"],
+        include: ["src/**/*.{ts,tsx}"],
+        exclude: ["src/test/**", "src/**/*.test.*", "src/main.tsx"],
+      },
+    },
+  };
 });

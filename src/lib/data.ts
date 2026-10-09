@@ -1,3 +1,5 @@
+import type { IconKey } from "../components/Icon";
+
 // Números oficiais de WhatsApp/telefone do Grupo Plug Business
 // VITE_WHATSAPP_NUMBER pode conter um ou vários números separados por vírgula
 // (ex.: "244941216095,244940986180"). O primeiro é usado para links rápidos de WhatsApp.
@@ -23,7 +25,7 @@ export const waLink = (msg: string, number: string = WHATSAPP) =>
 
 export const telLink = (number: string = WHATSAPP) => `tel:+${number}`;
 
-export const provinces = ["Lubango", "Namibe", "Benguela", "Luanda"] as const;
+export const serviceAreas = ["Lubango", "Namibe", "Benguela", "Luanda"] as const;
 
 export const address =
   "Rua da Clínica Danfran, ao lado do ATM do Banco Atlântico, perto do Hotel Chik Chik / Bombas Central, Lubango, Huíla, Angola.";
@@ -56,12 +58,11 @@ export type Brand = {
   fullName: string;
   shortDesc: string;
   longDesc: string;
-  icon: string;
+  icon: IconKey;
   accent: string;
   featured: boolean;
   whatsappMsg: string;
   anchor: string;
-  heroImage: string;
 };
 
 export const brands: Brand[] = [
@@ -77,7 +78,6 @@ export const brands: Brand[] = [
     featured: true,
     whatsappMsg: "Olá! Tenho interesse em produtos Apple da Plug Apple.",
     anchor: "#marcas-apple",
-    heroImage: heroApple,
   },
   {
     id: "gold",
@@ -91,7 +91,6 @@ export const brands: Brand[] = [
     featured: true,
     whatsappMsg: "Olá! Quero vender ou trocar ouro na Plug Gold.",
     anchor: "#marcas-gold",
-    heroImage: heroGold,
   },
   {
     id: "clean",
@@ -105,7 +104,6 @@ export const brands: Brand[] = [
     featured: true,
     whatsappMsg: "Olá! Quero marcar um serviço de limpeza com a Plug Clean.",
     anchor: "#marcas-clean",
-    heroImage: heroClean,
   },
   {
     id: "deliveries",
@@ -119,7 +117,6 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero saber mais sobre as Plug Entregas.",
     anchor: "#marcas",
-    heroImage: heroDeliveries,
   },
   {
     id: "games",
@@ -133,7 +130,6 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Tenho interesse na Plug Games.",
     anchor: "#marcas",
-    heroImage: heroGames,
   },
   {
     id: "works",
@@ -147,7 +143,6 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero informações sobre a Plug Obras.",
     anchor: "#marcas",
-    heroImage: heroWorks,
   },
   {
     id: "food",
@@ -160,7 +155,6 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero saber mais sobre a Plug Food.",
     anchor: "#marcas",
-    heroImage: heroFood,
   },
   {
     id: "motors",
@@ -174,7 +168,6 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero saber mais sobre viaturas na Plug Motors.",
     anchor: "#marcas",
-    heroImage: heroMotors,
   },
   {
     id: "money",
@@ -188,7 +181,6 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero informações sobre câmbio na Plug Money.",
     anchor: "#marcas",
-    heroImage: heroMoney,
   },
   {
     id: "drip",
@@ -201,7 +193,6 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Quero saber mais sobre a Plug Drip.",
     anchor: "#marcas",
-    heroImage: heroDrip,
   },
   {
     id: "equipa",
@@ -215,7 +206,6 @@ export const brands: Brand[] = [
     featured: false,
     whatsappMsg: "Olá! Gostaria de falar com o Grupo Plug Business.",
     anchor: "#equipa",
-    heroImage: heroEquipa,
   },
 ] as const;
 
@@ -244,19 +234,6 @@ import realMotorsCars from "../assets/real/motors-cars.jpg";
 import realMoneyCount from "../assets/real/money-counting.jpg";
 import realDripSneakers from "../assets/real/drip-sneakers.jpg";
 import realEquipaTeam from "../assets/real/equipa-team.jpg";
-
-// Imagens geradas (hero por marca)
-import heroApple from "../assets/gen/hero-apple.jpg";
-import heroGold from "../assets/gen/hero-gold.jpg";
-import heroClean from "../assets/gen/hero-clean.jpg";
-import heroDeliveries from "../assets/gen/hero-deliveries.jpg";
-import heroGames from "../assets/gen/hero-games.jpg";
-import heroWorks from "../assets/gen/hero-works.jpg";
-import heroFood from "../assets/gen/hero-food.jpg";
-import heroMotors from "../assets/gen/hero-motors.jpg";
-import heroMoney from "../assets/gen/hero-money.jpg";
-import heroDrip from "../assets/gen/hero-drip.jpg";
-import heroEquipa from "../assets/gen/hero-equipa.jpg";
 
 export const img = {
   techStore: realTechStore,
@@ -323,7 +300,7 @@ export const brandGallery: Record<BrandKey, { src: string; label: string }[]> = 
 };
 
 export const socialProof = [
-  { icon: "Map", title: "4 Províncias", desc: "Lubango · Namibe · Benguela · Luanda" },
+  { icon: "Map", title: "4 localidades", desc: "Lubango · Namibe · Benguela · Luanda" },
   { icon: "Award", title: "11 Marcas", desc: "Tudo num só grupo empresarial" },
   { icon: "Clock", title: "Pagamento na Hora", desc: "Ouro vira dinheiro imediatamente" },
   { icon: "Shield", title: "Garantia & Confiança", desc: "Marca angolana consolidada" },

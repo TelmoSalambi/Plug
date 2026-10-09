@@ -1,13 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { HashRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 import Home from "./pages/Home";
 
 function renderHome() {
   return render(
-    <HashRouter>
+    <MemoryRouter>
       <Home />
-    </HashRouter>
+    </MemoryRouter>
   );
 }
 
@@ -49,13 +49,21 @@ describe("Home page", () => {
     }
   });
 
-  it("contém link 'Ver as 11 marcas'", () => {
+  it("contém um CTA para explorar as 11 marcas", () => {
     renderHome();
-    expect(screen.getByText(/Ver as 11 marcas/i)).toBeTruthy();
+    expect(screen.getByRole("link", { name: /Explorar as 11 marcas/i })).toBeInTheDocument();
   });
 
   it("mostra a secção de testemunhos", () => {
     renderHome();
     expect(screen.getByText(/Clientes satisfeitos/i)).toBeTruthy();
+  });
+
+  it("mantém o topo da página sem imagens de banner", () => {
+    const { container } = renderHome();
+    expect(container.querySelector("#inicio img")).toBeNull();
+    expect(
+      screen.queryByRole("region", { name: /destaques do Grupo Plug/i })
+    ).not.toBeInTheDocument();
   });
 });

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && node scripts/generate-pages.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
@@ -43,7 +43,6 @@
     "typescript": "5.9.3",
     "typescript-eslint": "^8.70.1",
     "vite": "^7.3.6",
-    "vite-plugin-singlefile": "2.3.0",
     "vitest": "^5.0.2"
   }
 }

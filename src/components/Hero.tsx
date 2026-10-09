@@ -1,84 +1,149 @@
-import { Particles } from "./Particles";
-import { waLink } from "../lib/data";
+import { Link } from "react-router-dom";
+import { brands, schedule, serviceAreas, waLink } from "../lib/data";
 import { Icon } from "./Icon";
-import { HeroCarousel } from "./HeroCarousel";
-
-function scrollToId(id: string) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-}
 
 export function Hero() {
+  const featuredBrands = brands.filter((brand) => brand.featured);
+
   return (
-    <section id="inicio" className="relative flex min-h-screen items-center overflow-hidden">
-      <HeroCarousel fill />
+    <section
+      id="inicio"
+      className="relative isolate overflow-hidden border-b border-white/[0.06] pb-16 pt-32 sm:pb-20 sm:pt-36 lg:min-h-[min(850px,100svh)] lg:pt-32"
+    >
+      <div
+        className="pointer-events-none absolute -left-40 top-8 h-[32rem] w-[32rem] rounded-full bg-[#C9A227]/[0.07] blur-[130px]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute bottom-0 right-0 h-[26rem] w-[26rem] rounded-full bg-white/[0.025] blur-[120px]"
+        aria-hidden="true"
+      />
 
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/85 to-[#0A0A0A]/40" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-transparent to-[#0A0A0A]/70" />
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-[#C9A227]/10 blur-[120px]" />
-      <Particles />
-
-      <div className="relative z-10 mx-auto w-full max-w-[1760px] px-5 sm:px-8 lg:px-14 pb-24 pt-32">
+      <div className="site-container relative grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
         <div className="max-w-2xl">
-          <span
-            className="hero-in inline-flex items-center gap-2 rounded-full border border-[#C9A227]/40 bg-[#C9A227]/10 px-4 py-1.5 text-xs font-medium uppercase tracking-[0.2em] text-[#F0C94A]"
-            style={{ animationDelay: "0.05s" }}
-          >
-            <Icon.Flag size={14} /> Marca Angolana · Lubango, Huíla
-          </span>
+          <p className="section-kicker">
+            <Icon.Flag size={15} /> Grupo empresarial angolano
+          </p>
 
-          <h1
-            className="hero-in mt-6 font-display text-4xl font-extrabold leading-[1.1] sm:text-5xl lg:text-6xl"
-            style={{ animationDelay: "0.15s" }}
-          >
-            Um só grupo,
+          <h1 className="hero-in mt-6 font-display text-[clamp(2.75rem,6vw,5.4rem)] font-bold leading-[1.02] tracking-[-0.045em] text-white">
+            Um só grupo.
             <br />
-            <span className="text-gradient-gold animate-shimmer">11 marcas</span>
-            <br />
-            de confiança.
+            <span className="text-gradient-gold">Onze marcas.</span>
           </h1>
 
           <p
-            className="hero-in mt-6 max-w-lg text-lg text-stone-300"
-            style={{ animationDelay: "0.3s" }}
+            className="hero-in section-copy mt-6 max-w-xl text-lg sm:text-xl"
+            style={{ animationDelay: "80ms" }}
           >
-            Apple, ouro, limpeza, entregas, jogos, obras, food, viaturas, câmbio, moda e muito mais
-            — tudo reunido numa única marca angolana, <em>premium</em> e credível.
+            Tecnologia, ouro, limpeza, entregas, obras, alimentação e muito mais — encontre a
+            solução certa e fale directamente com a equipa.
           </p>
 
-          <div className="hero-in mt-9 flex flex-wrap gap-4" style={{ animationDelay: "0.45s" }}>
+          <div className="hero-in mt-8 flex flex-wrap gap-3" style={{ animationDelay: "140ms" }}>
+            <Link to={{ pathname: "/", hash: "#marcas" }} className="button-primary btn-shine">
+              Explorar as {brands.length} marcas <Icon.ArrowRight size={18} />
+            </Link>
             <a
-              href={waLink("Olá! Quero saber mais sobre o Grupo Plug Business.")}
+              href={waLink("Olá! Gostaria de falar com o Grupo Plug Business.")}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 btn-shine rounded-full bg-gradient-to-r from-[#F0C94A] to-[#C9A227] px-7 py-3.5 font-semibold text-[#0A0A0A] transition hover:brightness-110 gold-glow"
+              className="button-secondary"
             >
-              <Icon.WhatsApp size={20} /> Fale connosco no WhatsApp
+              <Icon.WhatsApp size={18} /> Falar connosco
             </a>
-            <button
-              type="button"
-              onClick={() => scrollToId("marcas")}
-              className="rounded-full border border-[#C9A227]/40 px-7 py-3.5 font-semibold text-stone-200 transition hover:border-[#C9A227] hover:text-[#F0C94A]"
-            >
-              Ver as 11 marcas
-            </button>
           </div>
 
           <div
-            className="hero-in mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-stone-400"
-            style={{ animationDelay: "0.6s" }}
+            className="hero-in mt-10 border-t border-white/10 pt-6"
+            style={{ animationDelay: "200ms" }}
           >
-            <span className="flex items-center gap-2">
-              <Icon.Award size={16} className="text-[#F0C94A]" /> 11 marcas especializadas
-            </span>
-            <span className="flex items-center gap-2">
-              <Icon.Clock size={16} className="text-[#F0C94A]" /> Pagamento na hora
-            </span>
-            <span className="flex items-center gap-2">
-              <Icon.Map size={16} className="text-[#F0C94A]" /> Presença em 4 províncias
-            </span>
+            <div className="grid max-w-xl grid-cols-2 gap-x-6 gap-y-5 sm:grid-cols-3">
+              <div>
+                <p className="font-display text-2xl font-bold text-white">{brands.length}</p>
+                <p className="mt-1 text-xs text-stone-400">marcas especializadas</p>
+              </div>
+              <div>
+                <p className="font-display text-2xl font-bold text-white">{serviceAreas.length}</p>
+                <p className="mt-1 text-xs text-stone-400">localidades de atendimento</p>
+              </div>
+              <div className="col-span-2 sm:col-span-1">
+                <p className="flex items-center gap-2 font-semibold text-white">
+                  <Icon.Clock size={18} className="text-[#F0C94A]" />
+                  <span className="text-sm">Segunda a sábado</span>
+                </p>
+                <p className="mt-1 text-xs text-stone-400">
+                  {schedule.replace("Segunda a Sábado · ", "")}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+
+        <aside
+          className="reveal relative mx-auto w-full max-w-[590px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-gradient-to-br from-[#181a20] to-[#0e1014] p-5 shadow-2xl shadow-black/25 sm:p-7 lg:mx-0 lg:ml-auto"
+          aria-labelledby="quick-start-title"
+        >
+          <div
+            className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full border border-[#C9A227]/10"
+            aria-hidden="true"
+          />
+          <div className="relative">
+            <p className="section-kicker text-[10px]">Acesso rápido</p>
+            <h2
+              id="quick-start-title"
+              className="mt-3 font-display text-2xl font-bold text-white sm:text-3xl"
+            >
+              Por onde quer começar?
+            </h2>
+            <p className="mt-2 max-w-md text-sm leading-relaxed text-stone-400">
+              Aceda às áreas mais procuradas ou pesquise todas as marcas abaixo.
+            </p>
+
+            <ul className="mt-6 space-y-2">
+              {featuredBrands.map((brand) => {
+                const Ico = Icon[brand.icon];
+                return (
+                  <li key={brand.id}>
+                    <Link
+                      to={`/marcas/${brand.id}`}
+                      className="group flex min-h-[4.5rem] items-center gap-4 rounded-xl border border-white/[0.07] bg-black/15 px-4 py-3 transition duration-200 hover:border-[#C9A227]/25 hover:bg-[#C9A227]/[0.04]"
+                    >
+                      <span
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border"
+                        style={{
+                          borderColor: `${brand.accent}35`,
+                          background: `${brand.accent}10`,
+                          color: brand.accent,
+                        }}
+                      >
+                        <Ico size={19} />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block font-semibold text-white transition-colors group-hover:text-[#F0C94A]">
+                          {brand.name}
+                        </span>
+                        <span className="mt-0.5 block text-xs text-stone-400">
+                          {brand.shortDesc}
+                        </span>
+                      </span>
+                      <Icon.ArrowRight
+                        size={17}
+                        className="shrink-0 text-stone-500 transition-transform group-hover:translate-x-1 group-hover:text-[#F0C94A]"
+                      />
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <Link
+              to={{ pathname: "/", hash: "#marcas" }}
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#F0C94A] transition-colors hover:text-white"
+            >
+              Ver as 11 marcas <Icon.ArrowRight size={16} />
+            </Link>
+          </div>
+        </aside>
       </div>
     </section>
   );

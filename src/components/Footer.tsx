@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
-import { Icon, type IconKey } from "./Icon";
+import { Icon } from "./Icon";
 import {
+  brands,
   WHATSAPP_LIST,
   formatPhone,
   address,
@@ -12,17 +14,6 @@ import {
   waLink,
 } from "../lib/data";
 import { cn } from "../utils/cn";
-
-const brands: { icon: IconKey; name: string; desc: string; accent: string }[] = [
-  { icon: "Phone", name: "Plug Business", desc: "Tecnologia & serviços", accent: "#F0C94A" },
-  {
-    icon: "Ring",
-    name: "Ourivesaria Plug Golden",
-    desc: "Compra e troca de ouro",
-    accent: "#F0C94A",
-  },
-  { icon: "Sofa", name: "Plug Clean", desc: "Limpeza profunda", accent: "#4fd1c5" },
-];
 
 function PhoneRow({ number, defaultNumber }: { number: string; defaultNumber: string }) {
   const [copied, setCopied] = useState(false);
@@ -55,9 +46,11 @@ function PhoneRow({ number, defaultNumber }: { number: string; defaultNumber: st
       <button
         type="button"
         onClick={copy}
-        aria-label="Copiar número"
+        aria-label={
+          copied ? `Número ${formatPhone(number)} copiado` : `Copiar número ${formatPhone(number)}`
+        }
         className={cn(
-          "hidden h-6 w-6 items-center justify-center rounded text-stone-500 transition hover:text-[#F0C94A] group-hover:flex",
+          "flex h-6 w-6 items-center justify-center rounded text-stone-400 transition hover:text-[#F0C94A] sm:hidden sm:group-hover:flex sm:group-focus-within:flex",
           copied && "flex text-[#F0C94A]"
         )}
       >
@@ -75,14 +68,14 @@ export function Footer() {
   }, []);
 
   return (
-    <footer className="bg-[#080808] pt-16">
-      <div className="mx-auto max-w-[1760px] px-5 sm:px-8 lg:px-14">
-        <div className="grid gap-12 lg:grid-cols-4">
-          <div className="lg:col-span-1">
+    <footer className="border-t border-white/[0.07] bg-[#080a0d] pt-14 sm:pt-16">
+      <div className="site-container">
+        <div className="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-12">
+          <div className="lg:col-span-3">
             <Logo size={46} />
-            <p className="mt-5 text-sm text-stone-400">
-              Grupo empresarial angolano multissetorial, sediado em Lubango, Huíla. Tecnologia,
-              ourivesaria e limpeza numa só marca de confiança.
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-stone-400">
+              Grupo empresarial angolano sediado em Lubango, Huíla. Conheça as nossas onze marcas e
+              encontre os contactos certos para cada serviço.
             </p>
             <div className="mt-5 flex gap-3">
               <a
@@ -115,28 +108,35 @@ export function Footer() {
             </div>
           </div>
 
-          <div>
-            <h3 className="font-display font-bold text-[#F0C94A]">As nossas marcas</h3>
-            <ul className="mt-5 space-y-4">
+          <div className="lg:col-span-4">
+            <h3 className="font-display font-bold text-white">As 11 marcas do grupo</h3>
+            <ul className="mt-5 grid gap-x-6 gap-y-3 sm:grid-cols-2">
               {brands.map((b) => {
                 const Ico = Icon[b.icon];
                 return (
-                  <li key={b.name} className="flex items-start gap-3">
-                    <span className="mt-0.5" style={{ color: b.accent }}>
-                      <Ico size={22} />
-                    </span>
-                    <div>
-                      <div className="text-sm font-semibold text-white">{b.name}</div>
-                      <div className="text-xs text-stone-500">{b.desc}</div>
-                    </div>
+                  <li key={b.id}>
+                    <Link
+                      to={`/marcas/${b.id}`}
+                      className="group flex items-start gap-2 rounded-lg transition hover:text-[#F0C94A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F0C94A]"
+                    >
+                      <span className="mt-0.5 shrink-0" style={{ color: b.accent }}>
+                        <Ico size={18} />
+                      </span>
+                      <span>
+                        <span className="block text-sm font-semibold text-white group-hover:text-[#F0C94A]">
+                          {b.name}
+                        </span>
+                        <span className="block text-xs text-stone-400">{b.shortDesc}</span>
+                      </span>
+                    </Link>
                   </li>
                 );
               })}
             </ul>
           </div>
 
-          <div>
-            <h3 className="font-display font-bold text-[#F0C94A]">Morada & Horário</h3>
+          <div className="lg:col-span-3">
+            <h3 className="font-display font-bold text-white">Morada & Horário</h3>
             <p className="mt-5 flex items-start gap-2 text-sm text-stone-400">
               <Icon.Pin size={18} className="mt-0.5 shrink-0 text-[#F0C94A]" />
               {address}
@@ -169,8 +169,8 @@ export function Footer() {
             </a>
           </div>
 
-          <div>
-            <h3 className="font-display font-bold text-[#F0C94A]">Contactos</h3>
+          <div className="lg:col-span-2">
+            <h3 className="font-display font-bold text-white">Contactos</h3>
             <ul className="mt-5 space-y-3 text-sm text-stone-400">
               {WHATSAPP_LIST.map((n) => (
                 <PhoneRow key={n} number={n} defaultNumber={WHATSAPP_LIST[0]} />
@@ -185,17 +185,25 @@ export function Footer() {
                   <Icon.WhatsApp size={18} /> WhatsApp
                 </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Icon.Instagram size={18} /> {social.instagram.handle}
+              <li>
+                <a
+                  href={social.instagram.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 transition hover:text-[#F0C94A]"
+                >
+                  <Icon.Instagram size={18} /> {social.instagram.handle}
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Icon.Map size={18} /> Lubango · Namibe · Benguela · Luanda
+              <li className="flex items-start gap-2">
+                <Icon.Map size={18} className="mt-0.5 shrink-0" /> Lubango · Namibe · Benguela ·
+                Luanda
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/5 py-8 text-xs text-stone-500 sm:flex-row">
+        <div className="mt-14 flex flex-col items-center justify-between gap-3 border-t border-white/5 py-8 text-xs text-stone-400 sm:flex-row">
           <p>
             © {new Date().getFullYear()} Grupo Plug Business, Lda. Todos os direitos reservados.
           </p>

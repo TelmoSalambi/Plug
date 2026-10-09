@@ -48,7 +48,7 @@ export default function ApplePage() {
   useReveal();
   return (
     <>
-      <BrandHero brand={brand} extraImage={img.techVitrine}>
+      <BrandHero brand={brand}>
         <p
           className="hero-in mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-400"
           style={{ animationDelay: "0.3s" }}
@@ -65,7 +65,13 @@ export default function ApplePage() {
         </p>
       </BrandHero>
 
-      <BrandSection brand={brand} eyebrow="Catálogo" title="O que temos para si">
+      <BrandSection
+        brand={brand}
+        id="servicos"
+        eyebrow="Catálogo"
+        title="O que temos para si"
+        description="Consulte as principais categorias e fale connosco para confirmar modelos, disponibilidade e opções."
+      >
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p, i) => {
             const Ico = Icon[p.icon as keyof typeof Icon];
@@ -109,14 +115,13 @@ export default function ApplePage() {
           href={waLink(brand.whatsappMsg)}
           target="_blank"
           rel="noreferrer"
-          className="reveal mt-10 inline-flex items-center gap-2 btn-shine rounded-full px-7 py-3.5 font-semibold text-[#0A0A0A] transition hover:brightness-110 gold-glow"
-          style={{ background: `linear-gradient(to right, ${brand.accent}, #C9A227)` }}
+          className="button-primary btn-shine reveal mt-8"
         >
           <Icon.WhatsApp size={20} /> Pedir orçamento à {brand.name}
         </a>
       </BrandSection>
 
-      <BrandSection brand={brand} eyebrow="Galeria" title="Na nossa loja">
+      <BrandSection brand={brand} id="galeria" eyebrow="Galeria" title="Na nossa loja">
         <BrandGallery brand={brand} photos={brandGallery.apple} />
       </BrandSection>
     </>

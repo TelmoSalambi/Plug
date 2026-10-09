@@ -1,6 +1,6 @@
-import { brands, cleanServices, cleanPrices, waLink, img, brandGallery } from "../lib/data";
+import { brands, cleanServices, cleanPrices, waLink, brandGallery } from "../lib/data";
 import { BrandHero, BrandSection, BrandGallery } from "../components/BrandHero";
-import { Icon, type IconKey } from "../components/Icon";
+import { Icon } from "../components/Icon";
 import { useReveal } from "../hooks/useReveal";
 import { cn } from "../utils/cn";
 import { useState } from "react";
@@ -40,7 +40,7 @@ export default function CleanPage() {
 
   return (
     <>
-      <BrandHero brand={brand} extraImage={img.cleanWindow}>
+      <BrandHero brand={brand}>
         <p
           className="hero-in mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-400"
           style={{ animationDelay: "0.3s" }}
@@ -58,10 +58,16 @@ export default function CleanPage() {
       </BrandHero>
 
       {/* Serviços */}
-      <BrandSection brand={brand} eyebrow="Serviços" title="Limpeza profissional ao domicílio">
+      <BrandSection
+        brand={brand}
+        id="servicos"
+        eyebrow="Serviços"
+        title="Limpeza profissional ao domicílio"
+        description="Escolha o tipo de limpeza. Para confirmar disponibilidade e agendar, fale connosco pelo WhatsApp."
+      >
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {cleanServices.map((c, i) => {
-            const Ico = Icon[c.icon as IconKey];
+            const Ico = Icon[c.icon];
             return (
               <div
                 key={c.title}
@@ -87,10 +93,13 @@ export default function CleanPage() {
       </BrandSection>
 
       {/* Tabela de preços */}
-      <BrandSection brand={brand} eyebrow="Preços" title="Tabela fixa em kwanzas">
-        <p className="mb-8 text-stone-400">
-          Valores em Kz. Toque no WhatsApp ao lado de cada item para marcar directamente.
-        </p>
+      <BrandSection
+        brand={brand}
+        id="precos"
+        eyebrow="Preços"
+        title="Tabela fixa em kwanzas"
+        description="Valores por peça ou serviço, em Kz. Use o botão ao lado do preço para pedir uma marcação directamente à equipa."
+      >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cleanPrices.map((p, i) => {
             const Ico = priceIcon(p.item);
@@ -107,23 +116,25 @@ export default function CleanPage() {
                 </span>
                 <div className="flex items-center gap-2">
                   <span className="font-display text-lg font-bold text-[#F0C94A]">
-                    {p.price} <span className="text-xs text-stone-500">Kz</span>
+                    {p.price} <span className="text-xs text-stone-400">Kz</span>
                   </span>
-                  <div className="flex opacity-0 transition group-hover:opacity-100">
+                  <div className="flex opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
                     <button
                       type="button"
                       onClick={() => handleQuote(p.item)}
                       aria-label={`Marcar ${p.item}`}
-                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366]/10 text-[#25D366] transition hover:bg-[#25D366]/20"
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366]/10 text-[#25D366] transition hover:bg-[#25D366]/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366]"
                     >
                       <Icon.WhatsApp size={16} />
                     </button>
                     <button
                       type="button"
                       onClick={() => copy(p.item, p.price)}
-                      aria-label="Copiar preço"
+                      aria-label={
+                        isCopied ? `Preço de ${p.item} copiado` : `Copiar preço de ${p.item}`
+                      }
                       className={cn(
-                        "ml-1 flex h-9 w-9 items-center justify-center rounded-full border text-[#4fd1c5] transition",
+                        "ml-1 flex h-9 w-9 items-center justify-center rounded-full border text-[#4fd1c5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#4fd1c5]",
                         isCopied
                           ? "border-[#F0C94A] text-[#F0C94A]"
                           : "border-[#4fd1c5]/30 hover:bg-[#4fd1c5]/10"
@@ -142,15 +153,19 @@ export default function CleanPage() {
           href={waLink(brand.whatsappMsg)}
           target="_blank"
           rel="noreferrer"
-          className="reveal mt-10 inline-flex items-center gap-2 rounded-full border px-7 py-3.5 font-semibold transition hover:bg-white/5"
-          style={{ borderColor: brand.accent, color: brand.accent }}
+          className="button-primary reveal mt-8"
         >
           <Icon.Sparkles size={20} /> Marcar serviço de limpeza
         </a>
       </BrandSection>
 
       {/* Galeria real */}
-      <BrandSection brand={brand} eyebrow="Galeria" title="Trabalhos reais da nossa equipa">
+      <BrandSection
+        brand={brand}
+        id="galeria"
+        eyebrow="Galeria"
+        title="Trabalhos reais da nossa equipa"
+      >
         <BrandGallery brand={brand} photos={brandGallery.clean} />
       </BrandSection>
     </>

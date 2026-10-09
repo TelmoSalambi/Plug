@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>./</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://telmosalambi.github.io/Plug/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/apple/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/gold/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/clean/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/deliveries/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/games/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/works/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/food/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/motors/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/money/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/drip/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://telmosalambi.github.io/Plug/marcas/equipa/</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
 </urlset>

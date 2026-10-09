@@ -1,77 +1,88 @@
+import { Link } from "react-router-dom";
 import { Icon, type IconKey } from "./Icon";
 
 type Step = { n: string; title: string; desc: string; icon: IconKey };
 
 const steps: Step[] = [
   {
-    n: "1",
+    n: "01",
     title: "Escolha a marca",
-    desc: "Apple, Gold, Clean, Motors, Food, Drip ou qualquer uma das 11.",
+    desc: "Apple, Gold, Clean, Motors, Food, Drip ou qualquer uma das 11 marcas.",
     icon: "Award",
   },
   {
-    n: "2",
-    title: "Contacte via WhatsApp",
-    desc: "Atendimento personalizado e resposta rápida.",
+    n: "02",
+    title: "Fale directamente com a equipa",
+    desc: "Entre em contacto pelo WhatsApp da marca e explique o que procura.",
     icon: "WhatsApp",
   },
   {
-    n: "3",
-    title: "Tratamos de tudo",
-    desc: "Entregas ao domicílio, pagamento na hora, deslocações.",
-    icon: "Truck",
+    n: "03",
+    title: "Combine os próximos passos",
+    desc: "A equipa confirma consigo os detalhes do produto ou serviço escolhido.",
+    icon: "Calendar",
   },
   {
-    n: "4",
-    title: "Garantia & confiança",
-    desc: "Produtos verificados e serviço pós-venda.",
+    n: "04",
+    title: "Receba o seu atendimento",
+    desc: "Acompanhe o pedido com a equipa, de acordo com o serviço escolhido.",
     icon: "Shield",
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="como-funciona" className="relative scroll-mt-24 py-24">
-      <div className="mx-auto max-w-[1760px] px-5 sm:px-8 lg:px-14">
-        <div className="reveal text-center">
-          <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#C9A227]">
-            Como funciona
-          </span>
-          <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl lg:text-5xl">
-            Simples, rápido e <span className="text-gradient-gold">transparente</span>
+    <section
+      id="como-funciona"
+      className="scroll-mt-24 border-b border-white/[0.06] py-20 sm:py-24"
+      aria-labelledby="how-it-works-title"
+    >
+      <div className="site-container grid gap-12 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
+        <div className="reveal max-w-xl">
+          <p className="section-kicker">Como funciona</p>
+          <h2 id="how-it-works-title" className="section-title mt-4">
+            Encontrar o que precisa <span className="text-gradient-gold">é simples.</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-xl text-stone-400">
-            Todo o Grupo Plug Business funciona com o mesmo método de confiança: sem burocracia,
-            contacto directo e resultado garantido.
+          <p className="section-copy mt-5">
+            Cada marca tem uma página própria para apresentar os seus serviços e facilitar o
+            contacto com a equipa certa.
           </p>
+          <Link to={{ pathname: "/", hash: "#marcas" }} className="button-secondary mt-7">
+            Ver todas as marcas <Icon.ArrowRight size={17} />
+          </Link>
         </div>
 
-        <div className="relative mt-14">
-          {/* Linha conectora no desktop */}
-          <div className="absolute left-0 right-0 top-[52px] hidden h-px bg-gradient-to-r from-transparent via-[#C9A227]/30 to-transparent lg:block" />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {steps.map((s, i) => {
-              const Ico = Icon[s.icon];
+        <div className="relative">
+          <div
+            className="absolute bottom-10 left-[1.35rem] top-10 hidden w-px bg-gradient-to-b from-[#C9A227]/45 via-white/10 to-transparent sm:block"
+            aria-hidden="true"
+          />
+          <ol className="relative space-y-3">
+            {steps.map((step) => {
+              const Ico = Icon[step.icon];
               return (
-                <div
-                  key={s.n}
-                  className="reveal relative glass rounded-2xl p-6"
-                  style={{ transitionDelay: `${i * 100}ms` }}
+                <li
+                  key={step.n}
+                  className="reveal relative grid grid-cols-[2.75rem_1fr] gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.02] p-4 transition-colors hover:border-white/[0.14] sm:grid-cols-[3rem_1fr] sm:gap-5 sm:p-5"
                 >
-                  <div className="mb-4 flex items-center justify-center gap-4">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-[#C9A227]/50 font-display text-lg font-bold text-[#F0C94A]">
-                      {s.n}
-                    </span>
-                    <span className="text-[#F0C94A]">
-                      <Ico size={26} />
+                  <span className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full border border-[#C9A227]/35 bg-[#111318] text-[#F0C94A]">
+                    <Ico size={19} />
+                  </span>
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+                    <div>
+                      <h3 className="font-semibold text-white">{step.title}</h3>
+                      <p className="mt-1 max-w-xl text-sm leading-relaxed text-stone-400">
+                        {step.desc}
+                      </p>
+                    </div>
+                    <span className="font-display text-sm font-bold tabular-nums text-[#C9A227]/70">
+                      {step.n}
                     </span>
                   </div>
-                  <h4 className="text-center font-semibold text-white">{s.title}</h4>
-                  <p className="mt-1 text-center text-sm text-stone-400">{s.desc}</p>
-                </div>
+                </li>
               );
             })}
-          </div>
+          </ol>
         </div>
       </div>
     </section>

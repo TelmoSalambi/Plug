@@ -1,34 +1,46 @@
+import { Link } from "react-router-dom";
 import { waLink, WHATSAPP } from "../lib/data";
 import { Icon } from "./Icon";
 
 export function FinalCTA() {
   return (
-    <section className="relative overflow-hidden py-28">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,#241c07,#0A0A0A_60%)]" />
-      <div className="absolute left-1/2 top-1/2 h-[400px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#C9A227]/15 blur-[130px]" />
-      <div className="relative mx-auto max-w-4xl px-5 sm:px-8 lg:px-14 text-center">
-        <h2 className="reveal font-display text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
-          Fale connosco <span className="text-gradient-gold">agora mesmo</span>
-        </h2>
-        <p className="reveal mx-auto mt-5 max-w-xl text-lg text-stone-300">
-          Apple, ouro, limpeza, entregas, viaturas, câmbio, moda, food, obras ou jogos — seja qual
-          for a sua necessidade, fale connosco agora. Resposta rápida via WhatsApp ou chamada.
-        </p>
-        <div className="reveal mt-9 flex flex-wrap justify-center gap-4">
-          <a
-            href={waLink("Olá! Gostaria de falar com o Grupo Plug Business.")}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 btn-shine rounded-full bg-gradient-to-r from-[#F0C94A] to-[#C9A227] px-8 py-4 font-semibold text-[#0A0A0A] transition hover:brightness-110 gold-glow"
-          >
-            <Icon.WhatsApp size={20} /> WhatsApp
-          </a>
-          <a
-            href={`tel:+${WHATSAPP}`}
-            className="inline-flex items-center gap-2 rounded-full border border-[#C9A227]/40 px-8 py-4 font-semibold text-stone-200 transition hover:border-[#C9A227] hover:text-[#F0C94A]"
-          >
-            <Icon.Phone size={20} /> Ligar agora
-          </a>
+    <section className="py-20 sm:py-24" aria-labelledby="final-cta-title">
+      <div className="site-container">
+        <div className="reveal relative overflow-hidden rounded-[2rem] border border-[#C9A227]/20 bg-[radial-gradient(ellipse_at_85%_0%,rgba(201,162,39,0.14),transparent_45%),linear-gradient(135deg,#15171c,#0f1014)] px-6 py-12 sm:px-10 sm:py-14 lg:px-16 lg:py-16">
+          <div
+            className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full border border-[#C9A227]/10"
+            aria-hidden="true"
+          />
+          <div className="relative grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+            <div className="max-w-3xl">
+              <p className="section-kicker">Estamos ao seu dispor</p>
+              <h2
+                id="final-cta-title"
+                className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-0.03em] text-white sm:text-4xl lg:text-5xl"
+              >
+                Já sabe o que procura? <span className="text-gradient-gold">Vamos conversar.</span>
+              </h2>
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-300 sm:text-base">
+                Escolha uma das marcas do grupo ou fale connosco para encontrar o contacto certo.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 lg:justify-end">
+              <a
+                href={waLink("Olá! Gostaria de falar com o Grupo Plug Business.")}
+                target="_blank"
+                rel="noreferrer"
+                className="button-primary btn-shine"
+              >
+                <Icon.WhatsApp size={18} /> WhatsApp
+              </a>
+              <a href={`tel:+${WHATSAPP}`} className="button-secondary">
+                <Icon.Phone size={17} /> Ligar
+              </a>
+              <Link to={{ pathname: "/", hash: "#marcas" }} className="button-secondary">
+                Explorar marcas <Icon.ArrowRight size={17} />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
