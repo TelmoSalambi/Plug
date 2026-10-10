@@ -25,6 +25,9 @@ export default defineConfig(({ mode }) => {
       host: "0.0.0.0",
       allowedHosts,
     },
+    build: {
+      manifest: true,
+    },
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "src"),

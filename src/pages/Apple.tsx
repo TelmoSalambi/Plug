@@ -8,19 +8,19 @@ const brand = brands.find((b) => b.id === "apple")!;
 const products = [
   {
     name: "iPhone Novos",
-    desc: "Selados, últimos modelos disponíveis",
+    desc: "Consulte os modelos selados e o stock disponível.",
     icon: "Phone",
     image: img.techBoxes,
   },
   {
     name: "iPhone Usados",
-    desc: "Verificados e testados, com garantia",
+    desc: "Consulte o estado, o preço e as condições de garantia de cada equipamento.",
     icon: "Recycle",
     image: img.techIphones,
   },
   {
     name: "AirPods & Audio",
-    desc: "Pro e gerações mais recentes",
+    desc: "Consulte os modelos e as opções de áudio disponíveis.",
     icon: "Headphones",
     image: img.techBoxes,
   },
@@ -29,12 +29,6 @@ const products = [
     desc: "Capas, carregadores, cabos",
     icon: "Plug",
     image: img.techVitrine,
-  },
-  {
-    name: "Comandos PS4/PS5",
-    desc: "DualShock e DualSense",
-    icon: "Gamepad",
-    image: img.techStore,
   },
   {
     name: "Assistência Técnica",
@@ -54,10 +48,10 @@ export default function ApplePage() {
           style={{ animationDelay: "0.3s" }}
         >
           <span className="flex items-center gap-2">
-            <Icon.Shield size={16} style={{ color: brand.accent }} /> Equipamentos verificados
+            <Icon.Shield size={16} style={{ color: brand.accent }} /> Estado por equipamento
           </span>
           <span className="flex items-center gap-2">
-            <Icon.Award size={16} style={{ color: brand.accent }} /> Garantia incluída
+            <Icon.Award size={16} style={{ color: brand.accent }} /> Condições por equipamento
           </span>
           <span className="flex items-center gap-2">
             <Icon.Car size={16} style={{ color: brand.accent }} /> Entregas ao domicílio

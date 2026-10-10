@@ -13,7 +13,7 @@ export const WHATSAPP_LIST: string[] = (envNumber ?? "244941216095,244940986180"
 export const WHATSAPP = WHATSAPP_LIST[0] ?? "244941216095";
 
 export const BRAND_NAME = "Grupo Plug Business";
-export const BRAND_TAGLINE = "Um só grupo, onze marcas de confiança.";
+export const BRAND_TAGLINE = "Um só grupo, onze áreas de actividade.";
 
 export const formatPhone = (number: string) => {
   const m = number.match(/^(\d{3})(\d{3})(\d{3})(\d{3})$/);
@@ -72,7 +72,7 @@ export const brands: Brand[] = [
     fullName: "Plug Apple",
     shortDesc: "Produtos Apple",
     longDesc:
-      "Venda de iPhones, AirPods, iPads, MacBooks, Apple Watch e acessórios originais. Novos e usados verificados, com garantia e assistência técnica.",
+      "Venda de iPhones, AirPods, iPads, MacBooks, Apple Watch e acessórios. Consulte a equipa sobre modelos, disponibilidade, estado, garantia e assistência técnica.",
     icon: "Phone",
     accent: "#F0C94A",
     featured: true,
@@ -85,7 +85,7 @@ export const brands: Brand[] = [
     fullName: "Plug Gold · Ourivesaria",
     shortDesc: "Compra de ouro",
     longDesc:
-      "Compramos todo o tipo de ouro — fios, anéis, brincos, pulseiras, relógios, barras, mascotes e medalhas, mesmo danificado ou em pedaços. Pagamento na hora, pesagem transparente e troca por iPhone.",
+      "Compra e avaliação de artigos de ouro, incluindo fios, anéis, brincos, pulseiras, relógios, barras, mascotes e medalhas. Contacte a equipa para conhecer o valor da avaliação e as opções de venda ou troca.",
     icon: "Ring",
     accent: "#F0C94A",
     featured: true,
@@ -98,7 +98,7 @@ export const brands: Brand[] = [
     fullName: "Plug Clean · Lavagem a seco",
     shortDesc: "Limpeza profissional",
     longDesc:
-      "Lavagem a seco e limpeza profunda de sofás, colchões, cadeiras e interiores de viatura. Tabela de preços fixa em kwanzas, deslocação até si.",
+      "Lavagem a seco e limpeza de sofás, colchões, cadeiras e interiores de viatura. Consulte a equipa para confirmar a tabela de preços, disponibilidade e deslocação.",
     icon: "Sofa",
     accent: "#4fd1c5",
     featured: true,
@@ -109,9 +109,9 @@ export const brands: Brand[] = [
     id: "deliveries",
     name: "Plug Entregas",
     fullName: "Plug Entregas",
-    shortDesc: "Entregas rápidas",
+    shortDesc: "Serviço de entregas",
     longDesc:
-      "Serviço de entregas rápidas e seguras dos seus produtos comprados connosco até à sua porta, em várias províncias.",
+      "Entrega de produtos comprados connosco. Contacte a equipa para confirmar zonas de atendimento, prazos e custos.",
     icon: "Truck",
     accent: "#60a5fa",
     featured: false,
@@ -124,7 +124,7 @@ export const brands: Brand[] = [
     fullName: "Plug Games",
     shortDesc: "Playstation & jogos",
     longDesc:
-      "Consolas Playstation, comandos DualShock/DualSense, videojogos e acessórios de gaming originais.",
+      "Consolas PlayStation, comandos DualShock/DualSense, videojogos e acessórios de gaming. Consulte a equipa sobre disponibilidade, estado e condições de cada produto.",
     icon: "Gamepad",
     accent: "#a78bfa",
     featured: false,
@@ -137,7 +137,7 @@ export const brands: Brand[] = [
     fullName: "Plug Obras",
     shortDesc: "Construção & acabamentos",
     longDesc:
-      "Serviços técnicos de construção, instalação e acabamentos em casas e escritórios, com equipas próprias no terreno.",
+      "Serviços de construção, instalação e acabamentos em casas e escritórios. Contacte a equipa para confirmar o âmbito e a disponibilidade do trabalho.",
     icon: "Tool",
     accent: "#fb923c",
     featured: false,
@@ -162,7 +162,7 @@ export const brands: Brand[] = [
     fullName: "Plug Motors",
     shortDesc: "Venda de viaturas",
     longDesc:
-      "Viaturas novas e usadas com toda a documentação tratada por nós. Escolha com confiança.",
+      "Venda de viaturas novas e usadas. Consulte a equipa sobre disponibilidade, estado, documentação e condições de cada viatura.",
     icon: "Car",
     accent: "#facc15",
     featured: false,
@@ -175,7 +175,7 @@ export const brands: Brand[] = [
     fullName: "Plug Money",
     shortDesc: "Compra & venda de divisas",
     longDesc:
-      "Compra e venda de divisas: dólar americano, euro, kwanzas e outras moedas, com cotação justa e transacção segura na hora.",
+      "Compra e venda de divisas, incluindo dólar americano e euro. Contacte a equipa para confirmar moedas disponíveis, cotação e condições no momento da operação.",
     icon: "Cash",
     accent: "#34d399",
     featured: false,
@@ -200,7 +200,7 @@ export const brands: Brand[] = [
     fullName: "Plug Equipa",
     shortDesc: "A nossa equipa",
     longDesc:
-      "A equipa multidisciplinar do Grupo Plug Business: técnicos, ourives, motoristas, vendedores e gestores, sempre ao seu dispor.",
+      "Técnicos, ourives, motoristas, vendedores e gestores integram a equipa do Grupo Plug Business e apoiam as diferentes áreas de actividade.",
     icon: "Users",
     accent: "#e5e7eb",
     featured: false,
@@ -218,7 +218,6 @@ import realTechInstall from "../assets/real/tech-install.jpg";
 import realGoldScale from "../assets/real/gold-scale.jpg";
 import realGoldRingScale from "../assets/real/gold-ring-scale.jpg";
 import realGoldRingClose from "../assets/real/gold-ring-close.jpg";
-import realGoldFlyer from "../assets/real/gold-flyer.jpg";
 import realGoldTradeFlyer from "../assets/real/gold-trade-flyer.jpg";
 import cleanWindow from "../assets/clean/clean-window.jpg";
 import cleanMattress from "../assets/clean/clean-mattress.jpg";
@@ -244,7 +243,6 @@ export const img = {
   goldScale: realGoldScale,
   goldRing: realGoldRingScale,
   goldRingClose: realGoldRingClose,
-  goldFlyer: realGoldFlyer,
   goldTrade: realGoldTradeFlyer,
   // Plug Clean — fotos reais (sem overlays de marketing)
   cleanWindow,
@@ -300,10 +298,22 @@ export const brandGallery: Record<BrandKey, { src: string; label: string }[]> = 
 };
 
 export const socialProof = [
-  { icon: "Map", title: "4 localidades", desc: "Lubango · Namibe · Benguela · Luanda" },
-  { icon: "Award", title: "11 Marcas", desc: "Tudo num só grupo empresarial" },
-  { icon: "Clock", title: "Pagamento na Hora", desc: "Ouro vira dinheiro imediatamente" },
-  { icon: "Shield", title: "Garantia & Confiança", desc: "Marca angolana consolidada" },
+  {
+    icon: "Map",
+    title: "Zonas de atendimento",
+    desc: "Lubango · Namibe · Benguela · Luanda; confirme por serviço.",
+  },
+  { icon: "Award", title: "11 marcas", desc: "Diferentes áreas de actividade num só grupo." },
+  {
+    icon: "Clock",
+    title: "Contacto directo",
+    desc: "Confirme preços, disponibilidade e prazos com cada equipa.",
+  },
+  {
+    icon: "Shield",
+    title: "Condições claras",
+    desc: "Peça os detalhes antes de confirmar uma operação ou serviço.",
+  },
 ] as const;
 
 export const goldItems = [
@@ -324,9 +334,13 @@ export const goldItems = [
 export const cleanServices = [
   { icon: "Sofa", title: "Estofados & sofás", desc: "Higienização profunda de 1 a 7 lugares" },
   { icon: "Car", title: "Interior de viatura", desc: "Bancos, tecto e interior completo" },
-  { icon: "Bed", title: "Colchões", desc: "Elimina ácaros, fungos e odores" },
-  { icon: "Chair", title: "Cadeiras", desc: "Sala de jantar e escritório" },
-  { icon: "Tool", title: "Pós-obra", desc: "Deixa o espaço pronto a habitar" },
+  {
+    icon: "Bed",
+    title: "Colchões",
+    desc: "Limpeza de colchões; consulte a equipa sobre o tratamento adequado",
+  },
+  { icon: "Chair", title: "Cadeiras", desc: "Cadeiras de sala de jantar e escritório" },
+  { icon: "Tool", title: "Pós-obra", desc: "Limpeza de espaços após obras ou remodelações" },
 ] as const;
 
 export const cleanPrices = [
@@ -349,65 +363,38 @@ export const cleanPrices = [
 
 export const faqs = [
   {
-    q: "Que é o Grupo Plug Business?",
-    a: "Somos um grupo empresarial angolano multissetorial sediado em Lubango, que reúne 11 marcas especializadas: tecnologia Apple, compra de ouro, limpeza, entregas, jogos, obras, food, motors, câmbio de divisas, moda e muito mais.",
+    q: "O que é o Grupo Plug Business?",
+    a: "É um grupo empresarial angolano sediado em Lubango, com 11 marcas em áreas como tecnologia, ouro, limpeza, entregas, jogos, obras, alimentação, viaturas, câmbio e moda.",
   },
   {
-    q: "Que tipo de ouro compram?",
-    a: "Compramos e trocamos qualquer tipo de ouro: fios, anéis, brincos, pulseiras, relógios, barras, cordões, pingentes, medalhas e mascotes, mesmo que esteja danificado ou em pedaços. Pesamos na hora e pagamos de imediato.",
+    q: "Que tipo de ouro posso apresentar à Plug Gold?",
+    a: "A Plug Gold avalia artigos como fios, anéis, brincos, pulseiras, relógios, barras, cordões, pingentes, medalhas e mascotes. O valor e as condições são confirmados pela equipa antes de decidir.",
   },
   {
-    q: "Também trocam ouro por iPhone?",
-    a: "Sim! A Plug Gold é especializada na troca de artigos de ouro por iPhone (novo ou usado), com avaliação transparente à sua frente.",
+    q: "Posso trocar ouro por iPhone?",
+    a: "Contacte a Plug Gold para confirmar se há opções de troca por iPhone e quais modelos e condições estão disponíveis no momento.",
   },
   {
-    q: "A Plug Money compra e vende quais moedas?",
-    a: "Trabalhamos com dólar americano, euro e kwanzas, com cotação justa e transacção segura na hora.",
+    q: "Que moedas posso consultar na Plug Money?",
+    a: "Contacte a Plug Money para confirmar as moedas disponíveis, a cotação no momento e as condições da operação.",
   },
   {
     q: "Os iPhones e consolas têm garantia?",
-    a: "Sim. Todos os equipamentos da Plug Apple e Plug Games são verificados antes da venda e acompanham garantia. Também fazemos assistência técnica.",
+    a: "As condições de garantia variam conforme o produto. Peça à equipa os termos, o prazo e a cobertura específicos antes de comprar.",
   },
   {
     q: "Fazem atendimento fora de Lubango?",
-    a: "Sim. Estamos presentes em Lubango, Namibe, Benguela e Luanda. As Plug Entregas e a Plug Clean podem deslocar-se até si.",
+    a: "As zonas de atendimento variam conforme o serviço. Indique a sua localização à equipa para confirmar disponibilidade, prazo e eventual custo de deslocação.",
   },
   {
     q: "Como funciona a limpeza da Plug Clean?",
-    a: "Marca o serviço via WhatsApp ou chamada, a nossa equipa vai até si ou recebe a peça, fazemos a lavagem a seco e limpeza profunda, e entregamos. Tabela de preços fixa em kwanzas.",
+    a: "Contacte a Plug Clean com o tipo de peça e a sua localização. A equipa confirma disponibilidade, preço vigente, deslocação e data antes da marcação.",
   },
   {
     q: "A Plug Food vende produtos de onde?",
-    a: "A Plug Food comercializa produtos alimentares e bens vindos directamente da Namíbia, com qualidade garantida.",
+    a: "A Plug Food apresenta produtos alimentares e outros bens associados à Namíbia. Contacte a equipa para confirmar proveniência, stock e detalhes de cada produto.",
   },
 ];
-
-export const testimonials = [
-  {
-    name: "Maria S.",
-    city: "Lubango",
-    rating: 5,
-    text: "Vendi o meu fio de ouro na Plug Gold e recebi o dinheiro na hora. Pesagem transparente, sem enrolação.",
-  },
-  {
-    name: "João K.",
-    city: "Namibe",
-    rating: 5,
-    text: "Comprei um iPhone 13 selado na Plug Apple. Atendimento excelente e preço justo. É mesmo de confiança.",
-  },
-  {
-    name: "Ana P.",
-    city: "Lubango",
-    rating: 5,
-    text: "O sofá de 4 lugares ficou como novo com a Plug Clean. Vieram a casa no dia combinado.",
-  },
-  {
-    name: "Carlos M.",
-    city: "Benguela",
-    rating: 5,
-    text: "Troquei um anel antigo por um iPhone para a minha filha na Plug Gold. Transacção rápida e honesta.",
-  },
-] as const;
 
 // Coordenadas da morada (Clínica Danfran, Lubango) para OpenStreetMap
 export const mapCoords = { lat: -14.9186, lon: 13.5323 } as const;

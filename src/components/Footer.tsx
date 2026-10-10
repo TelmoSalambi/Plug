@@ -61,6 +61,7 @@ function PhoneRow({ number, defaultNumber }: { number: string; defaultNumber: st
 }
 
 export function Footer() {
+  const [mapLoaded, setMapLoaded] = useState(false);
   const mapSrc = useMemo(() => {
     const delta = 0.006;
     const bbox = `${mapCoords.lon - delta},${mapCoords.lat - delta},${mapCoords.lon + delta},${mapCoords.lat + delta}`;
@@ -147,17 +148,37 @@ export function Footer() {
                 <span className="font-semibold text-stone-200">{schedule}</span>
               </span>
             </p>
-            {/* Mini mapa OpenStreetMap */}
             <div className="mt-5 overflow-hidden rounded-xl border border-[#C9A227]/20">
-              <iframe
-                title="Localização do Grupo Plug Business no Lubango"
-                src={mapSrc}
-                width="100%"
-                height="180"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="block bg-[#0A0A0A]"
-              />
+              <div id="business-map">
+                {mapLoaded ? (
+                  <iframe
+                    title="Localização do Grupo Plug Business no Lubango"
+                    src={mapSrc}
+                    width="100%"
+                    height="180"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                    className="block bg-[#0A0A0A]"
+                  />
+                ) : (
+                  <div className="flex min-h-[180px] items-center justify-center bg-[#0A0A0A] px-4 text-center">
+                    <p className="max-w-xs text-xs leading-relaxed text-stone-400">
+                      O mapa interactivo é fornecido pelo OpenStreetMap e só carrega quando
+                      solicitado.
+                    </p>
+                  </div>
+                )}
+              </div>
+              <button
+                type="button"
+                onClick={() => setMapLoaded((loaded) => !loaded)}
+                aria-controls="business-map"
+                aria-expanded={mapLoaded}
+                className="flex min-h-10 w-full items-center justify-center gap-2 border-t border-[#C9A227]/20 bg-[#111318] px-4 text-xs font-semibold text-stone-300 transition hover:bg-white/[0.04] hover:text-[#F0C94A]"
+              >
+                <Icon.Map size={15} />
+                {mapLoaded ? "Ocultar mapa interactivo" : "Carregar mapa interactivo"}
+              </button>
             </div>
             <a
               href={`https://www.openstreetmap.org/?mlat=${mapCoords.lat}&mlon=${mapCoords.lon}#map=17/${mapCoords.lat}/${mapCoords.lon}`}

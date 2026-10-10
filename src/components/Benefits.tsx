@@ -8,24 +8,28 @@ const benefits: { icon: IconKey; title: string; desc: string }[] = [
   },
   {
     icon: "Cash",
-    title: "Pagamento na hora",
-    desc: "A Plug Gold paga de imediato após a avaliação do ouro.",
+    title: "Avaliação de ouro",
+    desc: "Consulte o processo, o valor proposto e as condições com a Plug Gold.",
   },
   {
     icon: "Car",
     title: "Atendimento ao domicílio",
-    desc: "Serviços seleccionados podem deslocar-se até si.",
+    desc: "Confirme se o serviço e a sua localização estão cobertos.",
   },
   {
     icon: "Users",
     title: "Equipas especializadas",
     desc: "Cada marca tem uma área de actividade própria.",
   },
-  { icon: "Map", title: "Várias localidades", desc: "Lubango, Namibe, Benguela e Luanda." },
+  {
+    icon: "Map",
+    title: "Zonas de atendimento",
+    desc: "Lubango, Namibe, Benguela e Luanda; confirme a cobertura por serviço.",
+  },
   {
     icon: "Shield",
-    title: "Produtos verificados",
-    desc: "Equipamentos tecnológicos testados antes da venda.",
+    title: "Detalhes do produto",
+    desc: "Confirme o estado, os acessórios e as condições antes da compra.",
   },
 ];
 

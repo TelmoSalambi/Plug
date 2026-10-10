@@ -1,69 +1,75 @@
-import { describe, expect, it } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { cleanup, render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import Home from "./pages/Home";
+import { AppRoutes } from "./App";
+import siteSeo from "./lib/site-seo.json";
+import { routeDefinitions } from "./lib/route-config";
 
-function renderHome() {
+const routeHeadings: Record<string, string | RegExp> = {
+  "/": /Um só grupo/,
+  "/marcas/apple": "Plug Apple",
+  "/marcas/gold": "Plug Gold",
+  "/marcas/clean": "Plug Clean",
+  "/marcas/deliveries": "Plug Entregas",
+  "/marcas/games": "Plug Games",
+  "/marcas/works": "Plug Obras",
+  "/marcas/food": "Plug Food",
+  "/marcas/motors": "Plug Motors",
+  "/marcas/money": "Plug Money",
+  "/marcas/drip": "Plug Drip",
+  "/marcas/equipa": "Plug Equipa",
+};
+
+function renderRoute(path: string, basename = "/") {
   return render(
-    <MemoryRouter>
-      <Home />
+    <MemoryRouter basename={basename} initialEntries={[path]}>
+      <AppRoutes />
     </MemoryRouter>
   );
 }
 
-describe("Home page", () => {
-  it("renderiza o título principal", () => {
-    renderHome();
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent("Um só grupo");
+afterEach(() => {
+  cleanup();
+  document.documentElement.classList.remove("js-motion");
+  vi.restoreAllMocks();
+});
+
+describe("rotas da aplicação", () => {
+  it("mantém a lista SEO sincronizada com as rotas navegáveis", () => {
+    const appPaths = routeDefinitions.map(({ path }) => path).filter((path) => path !== "/inicio");
+    expect(new Set(appPaths)).toEqual(new Set(siteSeo.routes.map((route) => route.path)));
   });
 
-  it("exibe as 11 marcas do grupo", () => {
-    renderHome();
-    const brands = [
-      "Plug Apple",
-      "Plug Gold",
-      "Plug Clean",
-      "Plug Entregas",
-      "Plug Games",
-      "Plug Obras",
-      "Plug Food",
-      "Plug Motors",
-      "Plug Money",
-      "Plug Drip",
-      "Plug Equipa",
-    ];
-    for (const name of brands) {
-      expect(screen.getAllByText(new RegExp(name, "i")).length).toBeGreaterThan(0);
+  it.each(Object.entries(routeHeadings))(
+    "renderiza conteúdo HTML para %s",
+    async (path, heading) => {
+      vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+      renderRoute(path);
+      expect(await screen.findByRole("heading", { level: 1, name: heading })).toBeInTheDocument();
     }
-  });
+  );
 
-  it("disponibiliza ligações para WhatsApp", () => {
-    renderHome();
-    const links = screen
-      .getAllByRole("link")
-      .filter((l) => (l.getAttribute("href") ?? "").startsWith("https://wa.me/"));
-    expect(links.length).toBeGreaterThan(0);
-    for (const link of links) {
-      expect(link.getAttribute("href")).toMatch(/^https:\/\/wa\.me\/\d+/);
-    }
-  });
-
-  it("contém um CTA para explorar as 11 marcas", () => {
-    renderHome();
-    expect(screen.getByRole("link", { name: /Explorar as 11 marcas/i })).toBeInTheDocument();
-  });
-
-  it("mostra a secção de testemunhos", () => {
-    renderHome();
-    expect(screen.getByText(/Clientes satisfeitos/i)).toBeTruthy();
-  });
-
-  it("mantém o topo da página sem imagens de banner", () => {
-    const { container } = renderHome();
-    expect(container.querySelector("#inicio img")).toBeNull();
+  it("renderiza a página inicial no caminho legado /inicio", async () => {
+    vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+    renderRoute("/inicio");
     expect(
-      screen.queryByRole("region", { name: /destaques do Grupo Plug/i })
-    ).not.toBeInTheDocument();
+      await screen.findByRole("heading", { level: 1, name: /Um só grupo/ })
+    ).toBeInTheDocument();
+  });
+
+  it("respeita o base path do GitHub Pages em links directos", async () => {
+    vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+    renderRoute("/Plug/marcas/apple", "/Plug");
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Plug Apple" })
+    ).toBeInTheDocument();
+  });
+
+  it("mostra uma página 404 para caminhos desconhecidos", async () => {
+    vi.spyOn(window, "scrollTo").mockImplementation(() => {});
+    renderRoute("/rota-inexistente");
+    expect(
+      await screen.findByRole("heading", { level: 1, name: "Esta página não foi encontrada." })
+    ).toBeInTheDocument();
   });
 });

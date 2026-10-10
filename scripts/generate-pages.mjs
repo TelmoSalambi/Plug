@@ -1,9 +1,9 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { log } from "node:console";
 import path from "node:path";
 import process from "node:process";
 import { URL, fileURLToPath } from "node:url";
-import { loadEnv } from "vite";
+import { createServer, loadEnv } from "vite";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDir, "..");
@@ -60,6 +60,38 @@ function setTitle(html, title) {
     : html.replace("</head>", `    ${tag}\n  </head>`);
 }
 
+function injectRenderedContent(template, { markup, resourceHints }) {
+  const rootPattern = /<div id="root"><\/div>/;
+  if (!rootPattern.test(template)) {
+    throw new Error('Não foi possível encontrar o contentor vazio "#root" em dist/index.html.');
+  }
+  let html = template.replace(rootPattern, `<div id="root">${markup}</div>`);
+  if (resourceHints) html = html.replace("</head>", `    ${resourceHints}\n  </head>`);
+  return html;
+}
+
+function builtAssetUrl(base, file) {
+  if (/^https?:\/\//i.test(base)) return new URL(file, base).href;
+  const prefix = base.endsWith("/") ? base : `${base}/`;
+  return `${prefix}${file.replace(/^\/+/, "")}`;
+}
+
+function rewriteAssetUrls(markup, manifest, base) {
+  let html = markup;
+  const normalizedBase = base.endsWith("/") ? base : `${base}/`;
+  for (const [source, entry] of Object.entries(manifest)) {
+    if (!source.startsWith("src/assets/") || !entry.file) continue;
+    const outputUrl = builtAssetUrl(base, entry.file);
+    html = html.replaceAll(`${normalizedBase}${source}`, outputUrl);
+    html = html.replaceAll(`/${source}`, outputUrl);
+  }
+
+  if (/\b(?:src|href)="(?:\/[^" ]+)?\/src\/assets\//.test(html)) {
+    throw new Error("Uma imagem prerenderizada ainda aponta para src/assets em vez do build.");
+  }
+  return html;
+}
+
 const siteUrl = normalizeSiteUrl(env.VITE_SITE_URL ?? routeConfig.siteUrl);
 const ogImage = new URL(routeConfig.ogImage, siteUrl).href;
 const defaultPhone = "244941216095,244940986180";
@@ -108,35 +140,73 @@ function applyRouteMetadata(template, route) {
   return html;
 }
 
+const manifestPath = path.join(distDir, ".vite/manifest.json");
+const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 let template = await readFile(path.join(distDir, "index.html"), "utf8");
 const faviconUrl = new URL("favicon.jpg", siteUrl).href;
 template = template.replace(/href="[^"]*favicon\.jpg"/i, `href="${faviconUrl}"`);
 
-for (const route of routeConfig.routes) {
-  const html = applyRouteMetadata(template, route);
-  if (route.path === "/") {
-    await writeFile(path.join(distDir, "index.html"), html);
-    continue;
+const vite = await createServer({
+  root: projectRoot,
+  mode: "production",
+  logLevel: "error",
+  server: { middlewareMode: true },
+  appType: "custom",
+});
+
+try {
+  const { renderStaticRoute } = await vite.ssrLoadModule("/src/entry-server.tsx");
+
+  const renderRoute = async (pathname) => {
+    const rendered = await renderStaticRoute(pathname);
+    if (!/<h1\b/.test(rendered.markup)) {
+      throw new Error(`A rota ${pathname} não produziu um título principal no HTML estático.`);
+    }
+    return {
+      markup: rewriteAssetUrls(rendered.markup, manifest, vite.config.base),
+      resourceHints: rewriteAssetUrls(rendered.resourceHints, manifest, vite.config.base),
+    };
+  };
+
+  for (const route of routeConfig.routes) {
+    const html = applyRouteMetadata(
+      injectRenderedContent(template, await renderRoute(route.path)),
+      route
+    );
+    if (route.path === "/") {
+      await writeFile(path.join(distDir, "index.html"), html);
+      continue;
+    }
+
+    const routeDirectory = path.join(distDir, ...route.path.split("/").filter(Boolean));
+    await mkdir(routeDirectory, { recursive: true });
+    await writeFile(path.join(routeDirectory, "index.html"), html);
   }
 
-  const routeDirectory = path.join(distDir, ...route.path.split("/").filter(Boolean));
-  await mkdir(routeDirectory, { recursive: true });
-  await writeFile(path.join(routeDirectory, "index.html"), html);
+  const homeRoute = routeConfig.routes.find((route) => route.path === "/");
+  if (!homeRoute) throw new Error('A configuração SEO precisa de uma rota inicial "/".');
+  const aliasDirectory = path.join(distDir, "inicio");
+  await mkdir(aliasDirectory, { recursive: true });
+  const aliasHtml = injectRenderedContent(template, await renderRoute("/inicio"));
+  await writeFile(
+    path.join(aliasDirectory, "index.html"),
+    applyRouteMetadata(aliasHtml, homeRoute)
+  );
+
+  const notFoundMarkup = await renderRoute("/__not_found__");
+  let notFoundHtml = applyRouteMetadata(injectRenderedContent(template, notFoundMarkup), {
+    path: "/__not_found__",
+    title: "Página não encontrada | Grupo Plug Business",
+    description: "A página que procura não foi encontrada. Volte ao Grupo Plug Business.",
+  });
+  notFoundHtml = notFoundHtml.replace(/<link rel="canonical"[^>]*\/?\s*>/i, "");
+  notFoundHtml = setMeta(notFoundHtml, "property", "og:url", siteUrl.href);
+  notFoundHtml = setMeta(notFoundHtml, "name", "robots", "noindex, nofollow");
+  await writeFile(path.join(distDir, "404.html"), notFoundHtml);
+} finally {
+  await vite.close();
+  await rm(path.dirname(manifestPath), { recursive: true, force: true });
 }
-
-const homeRoute = routeConfig.routes.find((route) => route.path === "/");
-const aliasDirectory = path.join(distDir, "inicio");
-await mkdir(aliasDirectory, { recursive: true });
-await writeFile(path.join(aliasDirectory, "index.html"), applyRouteMetadata(template, homeRoute));
-
-let notFoundHtml = applyRouteMetadata(template, {
-  path: "/",
-  title: "Página não encontrada | Grupo Plug Business",
-  description: "A página que procura não foi encontrada. Volte ao Grupo Plug Business.",
-});
-notFoundHtml = notFoundHtml.replace(/<link rel="canonical"[^>]*\/?\s*>/i, "");
-notFoundHtml = setMeta(notFoundHtml, "name", "robots", "noindex, nofollow");
-await writeFile(path.join(distDir, "404.html"), notFoundHtml);
 
 const sitemapEntries = routeConfig.routes
   .map((route) => {
@@ -151,4 +221,4 @@ await writeFile(
   `User-agent: *\nAllow: /\n\nSitemap: ${new URL("sitemap.xml", siteUrl).href}\n`
 );
 
-log(`Generated ${routeConfig.routes.length} SEO route pages for ${siteUrl.href}`);
+log(`Generated ${routeConfig.routes.length} prerendered SEO route pages for ${siteUrl.href}`);

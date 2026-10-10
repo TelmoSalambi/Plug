@@ -1,9 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap");
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/playfair-display";
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Playfair Display Variable", Georgia, serif;
+  --font-sans: "Inter Variable", system-ui, sans-serif;
   --color-gold: #c9a227;
   --color-gold-light: #f0c94a;
   --color-ink: #090a0d;

@@ -6,10 +6,10 @@ import { useReveal } from "../hooks/useReveal";
 const brand = brands.find((b) => b.id === "gold")!;
 
 const features = [
-  { icon: "Scale", text: "Pesagem transparente à sua frente" },
-  { icon: "Cash", text: "Pagamento imediato em kwanzas" },
-  { icon: "Car", text: "Atendimento ao domicílio gratuito" },
-  { icon: "Handshake", text: "Troca directa por iPhone" },
+  { icon: "Scale", text: "Acompanhe a avaliação das suas peças" },
+  { icon: "Cash", text: "Confirme o valor e as condições antes de decidir" },
+  { icon: "Car", text: "Consulte as condições de atendimento ao domicílio" },
+  { icon: "Handshake", text: "Pergunte sobre opções de troca por iPhone" },
 ] as const;
 
 export default function GoldPage() {
@@ -22,13 +22,13 @@ export default function GoldPage() {
           style={{ animationDelay: "0.3s" }}
         >
           <span className="flex items-center gap-2">
-            <Icon.Clock size={16} style={{ color: brand.accent }} /> Pagamento na hora
+            <Icon.Clock size={16} style={{ color: brand.accent }} /> Avaliação de ouro
           </span>
           <span className="flex items-center gap-2">
             <Icon.Car size={16} style={{ color: brand.accent }} /> Atendimento ao domicílio
           </span>
           <span className="flex items-center gap-2">
-            <Icon.Shield size={16} style={{ color: brand.accent }} /> Avaliação transparente
+            <Icon.Shield size={16} style={{ color: brand.accent }} /> Condições explicadas
           </span>
         </p>
       </BrandHero>
@@ -38,8 +38,8 @@ export default function GoldPage() {
         brand={brand}
         id="servicos"
         eyebrow="Como trabalhamos"
-        title="Pesagem clara, pagamento imediato"
-        description="A avaliação é feita consigo e o valor é confirmado antes de qualquer decisão."
+        title="Avaliação transparente, decisão informada"
+        description="Contacte a equipa para conhecer o processo de avaliação, o valor proposto e as condições antes de confirmar a operação."
       >
         <div className="grid gap-10 lg:grid-cols-2">
           <div className="reveal reveal-zoom grid grid-cols-2 gap-4">

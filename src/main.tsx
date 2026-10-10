@@ -1,72 +1,35 @@
-/* eslint-disable react-refresh/only-export-components -- This entry module intentionally declares route-level lazy components. */
-import { lazy, StrictMode, Suspense } from "react";
-import { createRoot } from "react-dom/client";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import type { BrandKey } from "./lib/data";
+import { StrictMode } from "react";
+import { createRoot, hydrateRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import "./index.css";
-import { SiteLayout } from "./layouts/SiteLayout";
+import { AppRoutes } from "./App";
 
-const Home = lazy(() => import("./pages/Home"));
-const ApplePage = lazy(() => import("./pages/Apple"));
-const GoldPage = lazy(() => import("./pages/Gold"));
-const CleanPage = lazy(() => import("./pages/Clean"));
-const NotFoundPage = lazy(() => import("./pages/NotFound"));
-
-function lazyBrandPage(id: BrandKey) {
-  return lazy(async () => {
-    const { createBrandPage } = await import("./pages/BrandPlaceholder");
-    return { default: createBrandPage(id) };
-  });
-}
-
-const DeliveriesPage = lazyBrandPage("deliveries");
-const GamesPage = lazyBrandPage("games");
-const WorksPage = lazyBrandPage("works");
-const FoodPage = lazyBrandPage("food");
-const MotorsPage = lazyBrandPage("motors");
-const MoneyPage = lazyBrandPage("money");
-const DripPage = lazyBrandPage("drip");
-const EquipaPage = lazyBrandPage("equipa");
 const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
 const basename = basePath || "/";
+const rootElement = document.getElementById("root");
 
-// Preserve bookmarks created by the former HashRouter routes.
-if (window.location.hash.startsWith("#/")) {
-  window.history.replaceState(null, "", `${basePath}${window.location.hash.slice(1)}`);
+if (!rootElement) {
+  throw new Error("Elemento #root não encontrado.");
 }
 
-createRoot(document.getElementById("root")!).render(
+// Preserve bookmarks created by the former HashRouter routes.
+let canHydrate = rootElement.hasChildNodes();
+if (window.location.hash.startsWith("#/")) {
+  window.history.replaceState(null, "", `${basePath}${window.location.hash.slice(1)}`);
+  // The old hash URL serves the home HTML shell, so let the router render its new route.
+  canHydrate = false;
+}
+
+const app = (
   <StrictMode>
     <BrowserRouter basename={basename}>
-      <Suspense
-        fallback={
-          <div
-            className="flex min-h-screen items-center justify-center bg-[#0A0A0A] text-stone-300"
-            role="status"
-          >
-            A carregar…
-          </div>
-        }
-      >
-        <Routes>
-          <Route element={<SiteLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/inicio" element={<Navigate to="/" replace />} />
-            <Route path="/marcas/apple" element={<ApplePage />} />
-            <Route path="/marcas/gold" element={<GoldPage />} />
-            <Route path="/marcas/clean" element={<CleanPage />} />
-            <Route path="/marcas/deliveries" element={<DeliveriesPage />} />
-            <Route path="/marcas/games" element={<GamesPage />} />
-            <Route path="/marcas/works" element={<WorksPage />} />
-            <Route path="/marcas/food" element={<FoodPage />} />
-            <Route path="/marcas/motors" element={<MotorsPage />} />
-            <Route path="/marcas/money" element={<MoneyPage />} />
-            <Route path="/marcas/drip" element={<DripPage />} />
-            <Route path="/marcas/equipa" element={<EquipaPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>
-        </Routes>
-      </Suspense>
+      <AppRoutes />
     </BrowserRouter>
   </StrictMode>
 );
+
+if (canHydrate) {
+  hydrateRoot(rootElement, app);
+} else {
+  createRoot(rootElement).render(app);
+}

@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
+
+const useIsomorphicLayoutEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 export function useReveal() {
-  useEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const root = document.documentElement;
     root.classList.add("js-motion");
 

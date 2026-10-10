@@ -15,7 +15,7 @@
 2. Indicadores institucionais essenciais.
 3. Directório pesquisável das onze marcas.
 4. Explicação simples do processo de atendimento.
-5. Benefícios, testemunhos, perguntas frequentes e chamada final à acção.
+5. Benefícios, perguntas frequentes e chamada final à acção.
 
 ### Página de marca
 
@@ -33,6 +33,7 @@ Manter este esqueleto partilhado em `BrandHero` e `BrandSection`; os conteúdos 
 - A pesquisa do directório deve aceitar nomes e serviços, ignorar acentos e anunciar a quantidade de resultados.
 - CTA principal: contacto/WhatsApp. CTA secundária: explorar conteúdo ou navegar para outra área.
 - Navegação global deve funcionar com teclado, estado expandido explícito e fecho com Escape.
+- Alojar localmente fontes e recursos estáticos; carregar mapas e outros conteúdos externos apenas após pedido explícito.
 
 ## Movimento e acessibilidade
 

@@ -49,10 +49,10 @@ export default function CleanPage() {
             <Icon.Sparkles size={16} style={{ color: brand.accent }} /> Lavagem a seco profissional
           </span>
           <span className="flex items-center gap-2">
-            <Icon.Car size={16} style={{ color: brand.accent }} /> Deslocação até si
+            <Icon.Car size={16} style={{ color: brand.accent }} /> Deslocação mediante confirmação
           </span>
           <span className="flex items-center gap-2">
-            <Icon.Cash size={16} style={{ color: brand.accent }} /> Preços fixos em Kz
+            <Icon.Cash size={16} style={{ color: brand.accent }} /> Preços em Kz
           </span>
         </p>
       </BrandHero>
@@ -62,7 +62,7 @@ export default function CleanPage() {
         brand={brand}
         id="servicos"
         eyebrow="Serviços"
-        title="Limpeza profissional ao domicílio"
+        title="Limpeza de estofados e espaços"
         description="Escolha o tipo de limpeza. Para confirmar disponibilidade e agendar, fale connosco pelo WhatsApp."
       >
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -97,8 +97,8 @@ export default function CleanPage() {
         brand={brand}
         id="precos"
         eyebrow="Preços"
-        title="Tabela fixa em kwanzas"
-        description="Valores por peça ou serviço, em Kz. Use o botão ao lado do preço para pedir uma marcação directamente à equipa."
+        title="Preços indicados em kwanzas"
+        description="Os valores estão indicados por peça ou serviço. Confirme o preço vigente e a disponibilidade com a equipa antes de marcar; os botões permitem pedir informações e copiar um valor."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cleanPrices.map((p, i) => {
@@ -118,7 +118,7 @@ export default function CleanPage() {
                   <span className="font-display text-lg font-bold text-[#F0C94A]">
                     {p.price} <span className="text-xs text-stone-400">Kz</span>
                   </span>
-                  <div className="flex opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100">
+                  <div className="flex opacity-100 transition">
                     <button
                       type="button"
                       onClick={() => handleQuote(p.item)}

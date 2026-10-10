@@ -16,8 +16,8 @@ const highlights: Partial<Record<BrandKey, Highlight[]>> = {
     },
     {
       icon: "Map",
-      title: "Várias localidades",
-      desc: "Serviço disponível nas províncias onde o grupo opera.",
+      title: "Zonas de entrega",
+      desc: "Confirme com a equipa se a sua localização está coberta e quais são os prazos e custos.",
     },
     {
       icon: "Phone",
@@ -38,8 +38,8 @@ const highlights: Partial<Record<BrandKey, Highlight[]>> = {
     },
     {
       icon: "Shield",
-      title: "Equipamento verificado",
-      desc: "Os equipamentos são verificados antes da venda.",
+      title: "Estado do equipamento",
+      desc: "Peça à equipa o estado, os acessórios incluídos e as condições de cada unidade.",
     },
   ],
   works: [
@@ -50,8 +50,8 @@ const highlights: Partial<Record<BrandKey, Highlight[]>> = {
     },
     {
       icon: "Users",
-      title: "Equipas no terreno",
-      desc: "Profissionais próprios acompanham os trabalhos.",
+      title: "Planeamento do trabalho",
+      desc: "Confirme com a equipa o âmbito, os profissionais envolvidos e a disponibilidade.",
     },
     {
       icon: "Award",
@@ -63,12 +63,12 @@ const highlights: Partial<Record<BrandKey, Highlight[]>> = {
     {
       icon: "Food",
       title: "Produtos alimentares",
-      desc: "Selecção de produtos alimentares e bens vindos da Namíbia.",
+      desc: "Consulte a equipa sobre categorias, proveniência e stock disponível.",
     },
     {
       icon: "Truck",
-      title: "Importação directa",
-      desc: "Produtos importados para venda através da Plug Food.",
+      title: "Detalhes de proveniência",
+      desc: "Confirme a origem e as informações de cada produto antes da compra.",
     },
     {
       icon: "Phone",
@@ -84,8 +84,8 @@ const highlights: Partial<Record<BrandKey, Highlight[]>> = {
     },
     {
       icon: "Shield",
-      title: "Documentação tratada",
-      desc: "A equipa acompanha o processo de documentação.",
+      title: "Documentação da viatura",
+      desc: "Consulte a equipa sobre os documentos e as condições específicas de cada viatura.",
     },
     {
       icon: "Phone",
@@ -101,8 +101,8 @@ const highlights: Partial<Record<BrandKey, Highlight[]>> = {
     },
     {
       icon: "Shield",
-      title: "Transacções seguras",
-      desc: "Combine os detalhes da operação directamente com a equipa.",
+      title: "Condições da operação",
+      desc: "Confirme cotação, disponibilidade e condições antes de avançar.",
     },
     {
       icon: "Clock",

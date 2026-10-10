@@ -18,7 +18,7 @@ Website do **Grupo Plug Business**, sediado em Lubango, Angola, com 11 marcas:
 
 ## Arquitectura
 
-Aplicação React com **rotas reais** através de React Router. O build cria uma página HTML de entrada para cada marca, com título, descrição, canonical e metadados de partilha próprios. O conteúdo da aplicação é apresentado no cliente.
+Aplicação React com **rotas reais** através de React Router. O build pré-renderiza o conteúdo de cada rota numa página HTML própria, com título, descrição, canonical e metadados de partilha. No browser, React hidrata o HTML já entregue.
 
 ```text
 /                    Página inicial
@@ -70,7 +70,9 @@ Copie `.env.example` para `.env` e actualize os dados quando o domínio ou os co
 ```text
 index.html                    # entrada e metadados base
 public/                       # favicon, imagem social, robots.txt e sitemap.xml
-scripts/generate-pages.mjs    # gera páginas HTML, canonical, sitemap e 404
+scripts/generate-pages.mjs    # pré-renderiza rotas, gera metadados, sitemap e 404
+src/entry-server.tsx           # renderiza as rotas para HTML estático
+src/lib/route-config.ts        # tabela partilhada de rotas do browser e do build
 src/
   assets/                      # imagens do site
   components/                  # Navbar, Footer, Hero, BrandHero, etc.
@@ -87,7 +89,8 @@ src/
 - Título, canonical, Open Graph e Twitter Card específicos para cada página gerada.
 - `robots.txt` e `sitemap.xml` com URLs absolutas para o domínio público.
 - Link para saltar ao conteúdo, foco de teclado visível, textos alternativos e suporte a movimento reduzido.
-- O carrossel pode ser pausado e não roda automaticamente quando o utilizador prefere movimento reduzido.
+- O movimento respeita `prefers-reduced-motion`; o mapa externo só é carregado após pedido explícito.
+- As fontes Inter e Playfair Display são alojadas no próprio site, sem pedidos ao Google Fonts.
 - O workflow executa typecheck, lint, formatação, testes, auditoria das dependências e build antes da publicação.
 
 O domínio/base do GitHub Pages está configurado no workflow. Se mudar o repositório, domínio ou contactos, actualize `VITE_BASE_PATH`, `VITE_SITE_URL` e `VITE_WHATSAPP_NUMBER` no ambiente de publicação.

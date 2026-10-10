@@ -233,29 +233,3 @@ export function BrandGallery({
     </div>
   );
 }
-
-export function ComingSoon({ brand }: { brand: Brand }) {
-  return (
-    <div className="reveal rounded-2xl border border-dashed border-white/15 bg-white/[0.02] p-8 text-center sm:p-12">
-      <div
-        className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white/[0.04]"
-        style={{ color: brand.accent }}
-      >
-        <Icon.Camera size={24} />
-      </div>
-      <h3 className="font-display text-xl font-bold text-white">Mais detalhes em preparação</h3>
-      <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-stone-400">
-        Para informações sobre os produtos e serviços da {brand.name}, fale directamente com a
-        equipa.
-      </p>
-      <a
-        href={waLink(brand.whatsappMsg)}
-        target="_blank"
-        rel="noreferrer"
-        className="button-primary mt-6"
-      >
-        <Icon.WhatsApp size={18} /> Contactar {brand.name}
-      </a>
-    </div>
-  );
-}
